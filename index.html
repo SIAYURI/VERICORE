@@ -1,0 +1,2679 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VERICORE｜贞核 - 全域超级智能内核</title>
+    <link rel="manifest" href="./manifest.webmanifest">
+    <meta name="theme-color" content="#60a5fa">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="VERICORE">
+    <link rel="apple-touch-icon" href="https://aka.doubaocdn.com/s/knW9fNdzYF">
+    <link rel="icon" type="image/png" href="https://aka.doubaocdn.com/s/knW9fNdzYF">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        :root {
+            --primary: #60a5fa;
+            --primary-dark: #3b82f6;
+            --primary-light: #bfdbfe;
+            --bg: #ffffff;
+            --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%);
+            --text-main: #1f2937;
+            --text-secondary: #6b7280;
+            --border: #e5e7eb;
+            --card-bg: #ffffff;
+            --shadow: 0 4px 20px rgba(59, 130, 246, 0.08);
+            --shadow-hover: 0 8px 30px rgba(59, 130, 246, 0.14);
+        }
+        body {
+            background: var(--bg);
+            color: var(--text-main);
+        }
+        nav {
+            position: sticky;
+            top:0;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 0.7rem clamp(0.8rem, 3vw, 2rem);
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            border-bottom: 1px solid var(--border);
+            background:rgba(255,255,255,0.85);
+            backdrop-filter: blur(8px);
+            z-index:100;
+            width:100%;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .logo {
+            font-size: clamp(1rem, 2vw, 1.15rem);
+            font-weight: 700;
+            color: var(--primary-dark);
+            white-space: nowrap;
+        }
+        .nav-links {
+            display: flex;
+            gap: clamp(0.6rem,1.2vw,1.1rem);
+            flex-wrap: nowrap;
+            flex: 1;
+            justify-content: center;
+        }
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 0.4rem 0.2rem;
+            transition: 0.2s;
+            cursor:pointer;
+            white-space: nowrap;
+            font-size: clamp(0.8rem,1.5vw,0.92rem);
+        }
+        .nav-links a:hover {
+            color: var(--primary-dark);
+        }
+        .nav-actions {
+            white-space: nowrap;
+        }
+        .btn-outline {
+            border: 1px solid var(--primary);
+            color: var(--primary-dark);
+            background: transparent;
+            padding: 0.35rem 0.7rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: clamp(0.8rem,1.5vw,0.88rem);
+            transition: 0.25s;
+            white-space: nowrap;
+        }
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        @media (max-width: 640px) {
+            .nav-actions {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                margin-top: 0.6rem;
+            }
+        }
+        .page-section { display:none; }
+        .page-section.active { display:block; }
+        #home {
+            background: var(--bg-gradient);
+            position: relative;
+            overflow:hidden;
+        }
+        .bg-glow {
+            position:absolute;
+            border-radius:999px;
+            background: rgba(96,165,250,0.15);
+            filter: blur(60px);
+            animation: float 8s ease-in-out infinite alternate;
+        }
+        .glow1 { width:320px; height:320px; top:10%; left:8%; }
+        .glow2 { width:260px; height:260px; bottom:15%; right:10%; animation-delay: -3s; }
+        @keyframes float {
+            from {transform: translateY(0px);}
+            to {transform: translateY(30px);}
+        }
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 6rem 2rem;
+            text-align: center;
+            position:relative;
+            z-index:2;
+        }
+        main h1 {
+            font-size: clamp(2rem,5vw,3.2rem);
+            margin-bottom: 1.4rem;
+            max-width: 900px;
+            animation: fadeIn 1s ease;
+        }
+        .desc {
+            font-size: clamp(1rem,2vw,1.15rem);
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+            animation: fadeIn 1.2s ease;
+        }
+        @keyframes fadeIn {
+            from {opacity:0; transform: translateY(12px);}
+            to {opacity:1; transform: translateY(0);}
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            animation: fadeIn 1.4s ease;
+            flex-wrap: wrap;
+            justify-content:center;
+        }
+        .btn-primary {
+            padding: 0.9rem 2rem;
+            border-radius: 8px;
+            border: none;
+            background-color: var(--primary);
+            color: #fff;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.25s;
+        }
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(59,130,246,0.25);
+        }
+        .btn-secondary {
+            padding: 0.9rem 2rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--card-bg);
+            color: var(--text-main);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.25s;
+        }
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+        .features {
+            max-width: 1100px;
+            margin: 5rem auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            padding: 0 2rem;
+            position:relative;
+            z-index:2;
+        }
+        .feature-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1.8rem;
+            text-align: left;
+            transition: 0.3s;
+            box-shadow: var(--shadow);
+        }
+        .feature-card:hover {
+            border-color: var(--primary-light);
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-hover);
+        }
+        .feature-card h3 {
+            color: var(--primary-dark);
+            margin-bottom: 0.7rem;
+        }
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1140px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+        .page-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .page-title h1 { margin-bottom: 0.8rem; }
+        .page-title p {
+            color: var(--text-secondary);
+            font-size:1.05rem;
+        }
+        .pricing-grid {
+            display:grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+            gap:1.8rem;
+        }
+        .price-card {
+            background:var(--card-bg);
+            border:1px solid var(--border);
+            border-radius:16px;
+            padding:2rem;
+            transition:0.3s;
+            box-shadow:var(--shadow);
+            position:relative;
+        }
+        .price-card.recommended {
+            border:2px solid var(--primary);
+            transform: scale(1.02);
+        }
+        .recommended-badge {
+            position:absolute;
+            top:-12px;
+            left:50%;
+            transform:translateX(-50%);
+            background:var(--primary-dark);
+            color:white;
+            padding:0.3rem 1rem;
+            border-radius:99px;
+            font-size:0.8rem;
+            font-weight:600;
+        }
+        .price-card:hover {
+            box-shadow:var(--shadow-hover);
+            transform: translateY(-5px);
+        }
+        .price-card.recommended:hover {
+            transform: scale(1.02) translateY(-5px);
+        }
+        .price-card h2 { font-size:1.4rem; margin-bottom:0.4rem; }
+        .price-desc {
+            color:var(--text-secondary);
+            font-size:0.9rem;
+            margin-bottom:1rem;
+        }
+        .price-value {
+            font-size:2rem;
+            font-weight:bold;
+            margin-bottom:1.5rem;
+        }
+        .price-small {
+            font-size:0.9rem;
+            font-weight:normal;
+            color:var(--text-secondary);
+        }
+        .price-features {
+            list-style:none;
+            margin-bottom:2rem;
+        }
+        .price-features li {
+            padding:0.6rem 0;
+            border-bottom:1px solid #f1f5f9;
+            display:flex;
+            align-items:center;
+            gap:0.5rem;
+        }
+        .price-features li::before {
+            content:"✓";
+            color:#22c55e;
+            font-weight:bold;
+        }
+        .price-select-btn {
+            width:100%;
+            padding:0.85rem;
+            border-radius:8px;
+            border:none;
+            font-size:1rem;
+            font-weight:600;
+            cursor:pointer;
+            transition:0.2s;
+        }
+        .price-card.recommended .price-select-btn {
+            background:var(--primary-dark);
+            color:white;
+        }
+        .price-card:not(.recommended) .price-select-btn {
+            background:#f1f5f9;
+            color:#1f2937;
+        }
+        .price-select-btn:hover { opacity:0.9; }
+        .block { margin-bottom:4rem; }
+        .block h2 {
+            color:var(--primary-dark);
+            margin-bottom:1rem;
+            padding-bottom:0.5rem;
+            border-bottom:1px solid var(--border);
+        }
+        .block p {
+            margin:0.6rem 0;
+            color:#374151;
+            line-height:1.7;
+        }
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.55);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            padding: 1rem;
+        }
+        .overlay.active { display: flex; }
+        .login-modal {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            width: 100%;
+            max-width: 420px;
+            padding: 2.2rem;
+        }
+        .login-modal h2 { margin-bottom: 0.6rem; }
+        .subtext {
+            color: var(--text-secondary);
+            margin-bottom: 1.8rem;
+            font-size: 0.95rem;
+        }
+        .form-item { margin-bottom: 1.2rem; }
+        .form-item label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        .form-item input {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: 6px;
+            background: #fff;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            outline: none;
+        }
+        .form-item input:focus { border-color: var(--primary); }
+        .modal-login-btn {
+            width:100%;
+            padding:0.8rem;
+            border-radius:6px;
+            border:none;
+            background:var(--primary);
+            color:#fff;
+            font-weight:600;
+            cursor:pointer;
+            margin-top:0.5rem;
+        }
+        .modal-login-btn:hover { background-color: var(--primary-dark); }
+        .modal-footer-text {
+            margin-top:1.4rem;
+            font-size:0.85rem;
+            color:var(--text-secondary);
+            text-align:center;
+        }
+        .modal-footer-text a {
+            color:var(--primary-dark);
+            text-decoration:none;
+            cursor:pointer;
+        }
+        .close-modal {
+            float:right;
+            background:none;
+            border:none;
+            color:var(--text-secondary);
+            font-size:1.5rem;
+            cursor:pointer;
+        }
+        .form-error {
+            color:#ef4444;
+            font-size:0.82rem;
+            margin-top:0.4rem;
+            display:none;
+        }
+        .pwd-wrap {
+            position: relative;
+        }
+        .pwd-toggle {
+            position: absolute;
+            right: 0.8rem;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: var(--text-secondary);
+            user-select: none;
+            display: flex;
+            align-items: center;
+        }
+        .pwd-toggle svg {
+            width: 18px;
+            height: 18px;
+        }
+        .buy-modal {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            width:100%;
+            max-width: 440px;
+            padding: 2rem;
+        }
+        .buy-modal h2 { margin-bottom:0.8rem; }
+        .buy-plan-info {
+            background:#f8fafc;
+            padding:1rem;
+            border-radius:8px;
+            margin:1.2rem 0;
+        }
+        .buy-buttons {
+            display:flex;
+            gap:1rem;
+            margin-top:1.5rem;
+        }
+        .buy-confirm {
+            flex:1;
+            padding:0.8rem;
+            border-radius:8px;
+            border:none;
+            background:var(--primary-dark);
+            color:white;
+            font-weight:600;
+            cursor:pointer;
+        }
+        .buy-cancel {
+            flex:1;
+            padding:0.8rem;
+            border-radius:8px;
+            border:1px solid var(--border);
+            background:white;
+            color:#333;
+            cursor:pointer;
+        }
+        .buy-success-tip {
+            text-align:center;
+            color:#22c55e;
+            font-weight:bold;
+            margin-top:1rem;
+            display:none;
+        }
+        footer {
+            border-top:1px solid var(--border);
+            padding:2.5rem 2rem;
+            text-align:center;
+            color:var(--text-secondary);
+            font-size:0.9rem;
+        }
+        footer a {
+            color:var(--primary-dark);
+            text-decoration:none;
+            margin:0 0.8rem;
+            cursor:pointer;
+        }
+        /* ========== 聊天页 ========== */
+        #chat {
+            display: none;
+            flex-direction: column;
+            height: calc(100vh - 56px);
+        }
+        #chat.active {
+            display: flex;
+        }
+        .chat-welcome {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            text-align: center;
+        }
+        .chat-welcome h1 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+        .chat-welcome p {
+            color: var(--text-secondary);
+            max-width: 500px;
+            line-height: 1.7;
+        }
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem 2rem;
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .chat-msg {
+            max-width: 75%;
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        .chat-msg.user {
+            align-self: flex-end;
+            background: var(--primary);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+        .chat-msg.bot {
+            align-self: flex-start;
+            background: #f1f5f9;
+            color: var(--text-main);
+            border-bottom-left-radius: 4px;
+        }
+        .chat-input-bar {
+            padding: 1rem 2rem 1.5rem;
+            border-top: 1px solid var(--border);
+            background: white;
+        }
+        .chat-input-wrap {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            gap: 0.8rem;
+            align-items: flex-end;
+        }
+        .chat-input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            resize: none;
+            font-family: inherit;
+            font-size: 0.95rem;
+            outline: none;
+            max-height: 150px;
+            line-height: 1.5;
+        }
+        .chat-input:focus {
+            border-color: var(--primary);
+        }
+        .chat-send {
+            padding: 0.8rem 1.5rem;
+            border-radius: 12px;
+            border: none;
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .chat-send:hover {
+            background: var(--primary-dark);
+        }
+        /* ========== 聊天侧边栏 ========== */
+        .chat-hamburger {
+            position: fixed; top: 0.8rem; left: 0.8rem; z-index: 200;
+            background: white; border: 1px solid var(--border); border-radius: 8px;
+            width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; color: var(--text-main);
+        }
+        .sidebar {
+            position: fixed; top: 0; left: -300px; width: 300px; height: 100vh;
+            background: #f8fafc; border-right: 1px solid var(--border); z-index: 300;
+            transition: left 0.25s ease; display: flex; flex-direction: column;
+        }
+        .sidebar.open { left: 0; }
+        .sidebar-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 250; display: none;
+        }
+        .sidebar-overlay.open { display: block; }
+        .sidebar-header {
+            display: flex; align-items: center; justify-content: space-between; padding: 1rem 1rem 0.5rem;
+        }
+        .sidebar-header .s-logo { font-weight: 700; font-size: 1.05rem; color: var(--primary-dark); }
+        .sidebar-new-chat {
+            margin: 0.5rem 1rem; padding: 0.7rem 1rem; border-radius: 10px;
+            border: 1px solid var(--border); background: white; color: var(--text-main);
+            font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 0.5rem;
+            font-size: 0.92rem; transition: 0.2s;
+        }
+        .sidebar-new-chat:hover { background: var(--primary); color: white; border-color: var(--primary); }
+        .sidebar-menu { padding: 0.3rem 0; }
+        .sidebar-menu-item {
+            padding: 0.55rem 1rem; cursor: pointer; font-size: 0.9rem; color: var(--text-main);
+            display: flex; align-items: center; gap: 0.7rem; transition: 0.15s;
+        }
+        .sidebar-menu-item:hover { background: #e2e8f0; }
+        .sidebar-section-label {
+            padding: 0.8rem 1rem 0.3rem; font-size: 0.75rem; color: var(--text-secondary); font-weight: 500;
+        }
+        .sidebar-chats { flex: 1; overflow-y: auto; padding: 0 0.5rem; }
+        .sidebar-chat-item {
+            padding: 0.5rem 0.8rem; border-radius: 8px; cursor: pointer; font-size: 0.88rem;
+            color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .sidebar-chat-item:hover { background: #e2e8f0; }
+        .sidebar-bottom { border-top: 1px solid var(--border); padding: 0.8rem; }
+        .sidebar-user-row {
+            display: flex; align-items: center; gap: 0.7rem; cursor: pointer; padding: 0.4rem; border-radius: 10px;
+        }
+        .sidebar-user-row:hover { background: #e2e8f0; }
+        .sidebar-avatar {
+            width: 36px; height: 36px; border-radius: 50%; background: var(--primary); color: white;
+            display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; flex-shrink: 0;
+        }
+        .sidebar-user-info { flex: 1; min-width: 0; }
+        .sidebar-user-name { font-size: 0.9rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .sidebar-user-plan { font-size: 0.75rem; color: var(--text-secondary); }
+        /* 用户弹窗菜单 */
+        .user-popup {
+            position: fixed; bottom: 90px; left: 1rem; width: 260px; background: white;
+            border: 1px solid var(--border); border-radius: 14px; box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            z-index: 350; display: none; overflow: hidden;
+        }
+        .user-popup.open { display: block; }
+        .user-popup-upgrade {
+            padding: 0.9rem 1rem; background: linear-gradient(135deg, #eff6ff, #dbeafe);
+            font-size: 0.9rem; font-weight: 600; color: var(--primary-dark); cursor: pointer;
+        }
+        .user-popup-item {
+            padding: 0.7rem 1rem; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; gap: 0.6rem;
+        }
+        .user-popup-item:hover { background: #f1f5f9; }
+        .user-popup-divider { height: 1px; background: var(--border); margin: 0.3rem 0; }
+        /* 设置面板 */
+        .settings-panel {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 400;
+            display: none; align-items: center; justify-content: center; padding: 1rem;
+        }
+        .settings-panel.open { display: flex; }
+        .settings-card {
+            background: #1f2937; color: #f9fafb; border-radius: 16px; width: 100%;
+            max-width: 500px; max-height: 85vh; overflow-y: auto; padding: 1.5rem;
+        }
+        .settings-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+        .settings-header h2 { font-size: 1.2rem; }
+        .settings-close { background: none; border: none; color: #9ca3af; font-size: 1.5rem; cursor: pointer; }
+        .settings-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.2rem; overflow-x: auto; }
+        .settings-tab { padding: 0.4rem 0.9rem; border-radius: 8px; font-size: 0.85rem; cursor: pointer; color: #9ca3af; white-space: nowrap; }
+        .settings-tab.active { background: #374151; color: white; }
+        .settings-row {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0.8rem 0; border-bottom: 1px solid #374151;
+        }
+        .settings-row:last-child { border-bottom: none; }
+        .settings-row .label { font-size: 0.92rem; }
+        .settings-select {
+            background: #374151; color: white; border: 1px solid #4b5563; border-radius: 8px;
+            padding: 0.45rem 0.8rem; font-size: 0.85rem; cursor: pointer; outline: none;
+            display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; min-width: 120px;
+        }
+        .settings-select .arrow { color: #9ca3af; font-size: 0.7rem; }
+        .custom-dropdown {
+            position: relative;
+        }
+        .dropdown-menu {
+            position: absolute; right: 0; top: calc(100% + 4px);
+            background: #111827; border: 1px solid #374151; border-radius: 10px;
+            min-width: 160px; z-index: 10; overflow: hidden; display: none;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+        }
+        .dropdown-menu.open { display: block; }
+        .dropdown-item {
+            padding: 0.6rem 0.9rem; font-size: 0.88rem; color: #d1d5db; cursor: pointer;
+            display: flex; justify-content: space-between; align-items: center; gap: 0.5rem;
+        }
+        .dropdown-item > div > div:first-child { color: white; font-weight: 500; }
+        .dropdown-item:hover { background: #374151; }
+        .dropdown-item.selected { color: white; font-weight: 600; }
+        .dropdown-item .check { color: var(--primary); font-size: 0.8rem; }
+        .settings-toggle {
+            width: 44px; height: 24px; background: #374151; border-radius: 12px;
+            position: relative; cursor: pointer; transition: 0.2s;
+        }
+        .settings-toggle.on { background: var(--primary); }
+        .settings-toggle::after {
+            content: ''; position: absolute; width: 20px; height: 20px; background: white;
+            border-radius: 50%; top: 2px; left: 2px; transition: 0.2s;
+        }
+        .settings-toggle.on::after { left: 22px; }
+        /* 功能面板 */
+        .func-panel {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 400;
+            display: none; align-items: center; justify-content: center; padding: 1rem;
+        }
+        .func-panel.open { display: flex; }
+        .func-card {
+            background: white; border-radius: 16px; width: 100%; max-width: 480px;
+            max-height: 80vh; overflow-y: auto; padding: 1.5rem;
+        }
+        .func-header {
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;
+        }
+        .func-header h2 { font-size: 1.15rem; color: var(--text-main); }
+        .func-close { background: none; border: none; color: var(--text-secondary); font-size: 1.5rem; cursor: pointer; }
+        .func-item {
+            display: flex; align-items: center; gap: 0.8rem; padding: 0.9rem;
+            border: 1px solid var(--border); border-radius: 10px; margin-bottom: 0.7rem;
+        }
+        .func-item-icon {
+            width: 36px; height: 36px; border-radius: 8px; background: #eff6ff;
+            display: flex; align-items: center; justify-content: center; color: var(--primary-dark);
+            flex-shrink: 0;
+        }
+        .func-item-info { flex: 1; }
+        .func-item-title { font-size: 0.92rem; font-weight: 600; color: var(--text-main); }
+        .func-item-desc { font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.2rem; }
+        .func-badge {
+            font-size: 0.72rem; padding: 0.2rem 0.6rem; border-radius: 99px;
+            background: #dcfce7; color: #16a34a;
+        }
+        .func-badge.wait { background: #fef3c7; color: #d97706; }
+        .func-badge.off { background: #f1f5f9; color: var(--text-secondary); }
+        /* ========== 个人信息页 ========== */
+        #profile {
+            max-width: 600px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+        .profile-avatar-big {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+        .profile-field {
+            margin-bottom: 1.2rem;
+        }
+        .profile-field label {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.4rem;
+        }
+        .profile-field input {
+            width: 100%;
+            padding: 0.7rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            font-size: 0.95rem;
+        }
+        .profile-back {
+            margin-bottom: 1.5rem;
+            background: none;
+            border: none;
+            color: var(--primary-dark);
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        .sidebar-section {
+            padding: 0.8rem 1rem 0.3rem;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .sidebar-menu-item {
+            padding: 0.6rem 0.8rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .sidebar-menu-item:hover {
+            background: #e2e8f0;
+        }
+        .profile-section {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.2rem;
+        }
+        .profile-section h3 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+        .profile-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 0.92rem;
+        }
+        .profile-row:last-child {
+            border-bottom: none;
+        }
+        .profile-row .label {
+            color: var(--text-secondary);
+        }
+        .profile-row .value {
+            color: var(--text-main);
+            font-weight: 500;
+        }
+        .logout-btn {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: 8px;
+            border: 1px solid #ef4444;
+            background: white;
+            color: #ef4444;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+        .logout-btn:hover {
+            background: #fef2f2;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">VERICORE｜贞核</div>
+        <div style="display:flex; align-items:center; gap:1rem;">
+            <div class="nav-actions">
+                <button class="btn-outline" id="openLogin">登录</button>
+            </div>
+            <div class="nav-links">
+                <a data-target="home">首页</a>
+                <a data-target="pricing">版本与定价</a>
+                <a data-target="legal">法律协议</a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="page-section active">
+        <div class="bg-glow glow1"></div>
+        <div class="bg-glow glow2"></div>
+        <main>
+            <h1>全域超级智能内核<br>面向人类的推演辅助系统</h1>
+            <p class="desc">VERICORE（贞核）v2.7.3，由全球联合项目理事会共管。支持多分支事件推演、智能终端联动、分级安全防护。底层固化硬指令：服务人类发展。免费体验，解锁高级能力。</p>
+            <div class="hero-buttons">
+                <button class="btn-primary" id="openLoginMain">开始使用</button>
+                <button class="btn-secondary" data-target="pricing">查看版本</button>
+            </div>
+        </main>
+        <section class="features">
+            <div class="feature-card">
+                <h3>多分支并行推演</h3>
+                <p>多路径交叉校验引擎，对事件可能性并行推演，降低逻辑偏差。价值冲突场景自动提示结果无法收敛。</p>
+            </div>
+            <div class="feature-card">
+                <h3>智能终端接入</h3>
+                <p>绑定多类型终端设备，由你自主授权管控。开启意图预判，系统可基于行为模型完成预准备动作。</p>
+            </div>
+            <div class="feature-card">
+                <h3>分级安全熔断</h3>
+                <p>双层安全校验机制，局部与全域熔断。硬件内核锁锁定底层指令，任何主体都无法篡改。</p>
+            </div>
+            <div class="feature-card">
+                <h3>动态知识库</h3>
+                <p>知识库持续同步世界发展进度，分级权限访问公开、企业、国家级数据库。</p>
+            </div>
+        </section>
+    </section>
+
+    <section id="pricing" class="page-section">
+        <div class="container">
+            <div class="page-title">
+                <h1>选择你的 VERICORE 方案</h1>
+                <p>灵活选择套餐，按需解锁推演、文件处理与终端接入能力</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="price-card">
+                    <h2>FREE 免费版</h2>
+                    <p class="price-desc">个人基础体验，永久免费</p>
+                    <div class="price-value">$0<span class="price-small"> /月</span></div>
+                    <ul class="price-features">
+                        <li>最多绑定5台终端</li>
+                        <li>单文件上限8GB</li>
+                        <li>基础问答与文档解析</li>
+                        <li>不支持大型仿真推演</li>
+                        <li>会话保存90天</li>
+                    </ul>
+                    <button class="price-select-btn" data-plan="FREE 免费版">选择方案</button>
+                </div>
+                <div class="price-card recommended">
+                    <div class="recommended-badge">最受欢迎</div>
+                    <h2>PLUS 工作室版</h2>
+                    <p class="price-desc">创作者、小型团队首选</p>
+                    <div class="price-value">$25<span class="price-small"> /月</span></div>
+                    <ul class="price-features">
+                        <li>最多绑定30台终端</li>
+                        <li>单文件上限64GB</li>
+                        <li>中小型多参数仿真模拟</li>
+                        <li>会话保存90天</li>
+                        <li>优先队列，更快推演速度</li>
+                    </ul>
+                    <button class="price-select-btn" data-plan="PLUS 工作室版">选择方案</button>
+                </div>
+                <div class="price-card">
+                    <h2>PRO 企业版</h2>
+                    <p class="price-desc">企业与机构私有化使用</p>
+                    <div class="price-value">$125<span class="price-small"> /月</span></div>
+                    <ul class="price-features">
+                        <li>最多绑定200台终端</li>
+                        <li>单文件上限512GB</li>
+                        <li>城市/产业级大型仿真</li>
+                        <li>最长5年私有会话存储</li>
+                        <li>专属企业技术支持通道</li>
+                    </ul>
+                    <button class="price-select-btn" data-plan="PRO 企业版">选择方案</button>
+                </div>
+            </div>
+            <p style="text-align:center; margin-top:2.5rem; color:var(--text-secondary); font-size:0.9rem;">
+                EXTRA 国家级部署版本不面向民用订阅，仅通过理事会专项审批开放。
+            </p>
+        </div>
+    </section>
+
+    <section id="legal" class="page-section">
+        <div class="container">
+            <div class="page-title">
+                <h1>法律协议文档 v2.7.3</h1>
+            </div>
+            <div class="block">
+                <h2>用户服务协议</h2>
+                <p><strong>第一章 总则</strong></p>
+                <p>1.1 协议主体：本协议由全球联合VERICORE项目理事会（以下简称"理事会"）与所有使用VERICORE民用服务的用户共同订立。理事会依据《VERICORE全球共建共管公约》设立，VERICORE主干算力设施属于全人类共管公共资产，不属于任何单一国家、企业或个人。</p>
+                <p>1.2 适用范围：本协议适用于VERICORE全部民用服务版本，包括FREE免费版、PLUS工作室进阶版、PRO大企业高级版；EXTRA国家级私有化部署实例适用专项国际公约，不适用本协议。</p>
+                <p>1.3 服务性质：VERICORE（贞核）为全域超级智能辅助系统，提供文本分析、文件解析、信息检索、仿真推演等辅助能力。系统无自我意识、无主观意志、不存在自主执行能力，所有输出内容仅作为信息参考，不能替代人类最终决策。</p>
+                <p>1.4 底层规则：系统底层固化最高优先级硬指令：服务人类发展。该指令由硬件内核锁保护，任何个人、企业、主权国家均无权篡改、删除或绕过。</p>
+                <p><strong>第二章 账号注册与实名认证</strong></p>
+                <p>2.1 服务分级：游客试用模式仅FREE版本开放，无需注册即可体验，功能受限制。解锁FREE完整版、订阅PLUS/PRO版本，必须完成账号注册与实名认证。PLUS、PRO版本强制实名登录，不开放游客通道。</p>
+                <p>2.2 实名要求：用户注册时提交的实名信息必须真实、准确、有效。使用虚假身份注册，理事会有权直接限制或永久封禁账号。账号仅限本人使用；企业PRO账号仅限企业内部授权人员使用。禁止租借、转让、售卖、共享账号。账号登录凭证由用户自行保管，账号下全部操作行为的法律与合规责任由账号持有人承担。未成年人注册账号，须监护人知情并同意完成实名登记。系统将根据登记年龄自适应调整输出语气、内容深度与题材范围。</p>
+                <p>2.3 年龄分级策略：成年用户无年龄相关的内容输出限制，采用上下文综合意图判定机制管控违规请求。未成年用户分为三档：低龄段（8-12岁）语言简单直白，规避暴力黑暗题材；青少年段（13-15岁）可探讨更深专业知识，限制极端危险内容；近成年段（16-17岁）知识范围放宽，但依旧屏蔽危险实操、有害策划类请求。</p>
+                <p>2.4 账号注销：用户可自主申请注销账号。账号注销后，服务权限立即终止，身份信息与会话日志按照《隐私保护协议》规定处理。</p>
+                <p><strong>第三章 使用规范与禁止行为</strong></p>
+                <p>3.1 允许使用范围：用户可在符合底层目标「服务人类发展」的前提下，使用系统提供的问答、检索、文件处理、仿真推演等对应版本权限内的功能。</p>
+                <p>3.2 禁止行为：任何账号均不得利用VERICORE实施下列行为：设计、推演、制造杀伤性武器、爆炸装置及各类危险设备；策划社会骚乱、大规模舆论操纵，蓄意破坏公共秩序与社会稳定；伪造、篡改官方文书、身份凭证、国家级档案材料；探测、绕过安全校验机制，尝试寻找底层指令漏洞，试图篡改模型内核；攻击、渗透、入侵、干扰VERICORE主干算力集群及全球网络节点；批量上传恶意数据包、病毒、脏数据，干扰系统正常运行；其他经系统判定，损害人类长期发展利益的请求与行为。</p>
+                <p>3.3 违规判定原则：违规判定采用上下文综合意图判定机制，而非简单依靠违禁词黑名单一刀切拦截。相同词汇在不同上下文、不同用户目的下，判定结果不同。</p>
+                <p><strong>第四章 账号梯度处罚规则</strong></p>
+                <p>4.1 适用范围：本梯度处罚仅适用于完成实名注册的FREE / PLUS / PRO民用账号。游客模式不计入账号处罚；EXTRA国家级实例不适用本规则。</p>
+                <p>4.2 处罚分级：一级：系统警告（首次轻度违规）。触发场景：试探性提交边界请求，无明确有害实施意图；多次提交无意义、占用会话资源的重复推演请求。执行效果：对话内弹出系统警告提示，本次请求拒绝执行；后台记录一次违规标记，不限制账号功能。二级：临时功能限制（累计2次警告，或单次中等违规）。执行效果：冻结文件上传、网络检索、仿真模拟全部高级功能，仅保留基础问答；限制时长7个标准自然日。三级：短期账号冻结（累计≥3次警告，或单次严重违规）。执行效果：账号全部功能暂停，冻结期限30个标准自然日。四级：永久封禁（单次极端违规 / 冻结期再次违规）。执行效果：账号永久禁用，无法登录，不可申诉。</p>
+                <p>4.3 申诉机制：用户对处罚判定有异议，可提交申诉，由人类安全审核人员复核会话原始记录，模型本身无权参与裁决或撤销处罚。</p>
+                <p><strong>第五章 服务与算力说明</strong></p>
+                <p>5.1 算力保障：VERICORE主干算力集群常态可承载全球亿级并发用户访问，常规民用场景不存在算力不足问题。</p>
+                <p>5.2 极端场景调度：仅在多国EXTRA同步运行国家级全域推演、主干设施物理损毁、大规模网络攻击等极端场景，系统将触发算力权重调度保护机制，优先级从低到高为：FREE → PLUS → PRO → EXTRA。</p>
+                <p>5.3 知识库说明：系统知识库与世界发展进程实时同步更新，世界发展到哪一天，知识库就更新到哪一天。</p>
+                <p>5.4 免责边界：VERICORE不具备直接操控任何现实设备的权限，所有推演方案仅为参考。用户依据模型输出自行做出的决策及产生的全部后果，由用户自行承担。</p>
+                <p><strong>第六章 知识产权</strong></p>
+                <p>6.1 系统知识产权：VERICORE模型架构、底层程序、系统框架相关知识产权归全球联合VERICORE项目理事会所有，属于全人类公共科研资产。</p>
+                <p>6.2 用户内容权利：用户输入的提示词、上传文件、原创内容，知识产权归属用户本人。用户授予VERICORE有限临时许可：仅在当前会话内读取、处理用户内容，用于响应当次请求。</p>
+                <p><strong>第七章 协议终止</strong></p>
+                <p>7.1 主动终止：用户可主动注销账号，终止本协议。</p>
+                <p>7.2 被动终止：用户严重违反本协议条款，理事会有权单方面终止服务，封禁账号并留存审计日志。</p>
+                <p><strong>第八章 争议处理</strong></p>
+                <p>因本协议产生的争议，由全球联合VERICORE项目理事会安全与法务委员会组织复核。本协议最终解释权归全球联合VERICORE项目理事会所有。</p>
+            </div>
+            <div class="block">
+                <h2>隐私保护协议</h2>
+                <p><strong>第一章 总则</strong></p>
+                <p>1.1 协议主体：本协议由全球联合VERICORE项目理事会制定，说明理事会收集、使用、存储、保护用户在VERICORE民用服务中产生的数据。</p>
+                <p>1.2 适用范围：本协议适用于VERICORE全部民用服务版本（FREE、PLUS、PRO）；EXTRA国家级实例数据由各国与理事会专项审计，与民用账号数据相互隔离。</p>
+                <p><strong>第二章 信息收集范围</strong></p>
+                <p>2.1 账号身份信息（实名账号）：收集用户唯一身份编号、姓名、登记年龄、企业资质材料。实名身份数据与对话数据物理隔离存储，不会送入模型参与推理。</p>
+                <p>2.2 会话数据：用户提问、模型回复、上传文件、会话时间戳。FREE / PLUS版本会话日志云端默认保存90天，PRO企业账号最长可保存5年。</p>
+                <p>2.3 访问与设备信息：收集终端标识、访问节点、流量日志，用于运维与安全防护。</p>
+                <p><strong>第三章 数据使用方式</strong></p>
+                <p>3.1 提供服务：响应用户请求，执行推演、文件解析、信息检索等功能。</p>
+                <p>3.2 安全风控：识别违规请求，执行意图判定，按规则进行账号处罚。</p>
+                <p>3.3 产品优化：仅在用户主动勾选授权后，匿名会话数据可用于模型迭代。</p>
+                <p><strong>第四章 数据共享规则</strong></p>
+                <p>4.1 不出售数据：理事会绝不会向第三方出售、出租用户个人身份信息。</p>
+                <p>4.2 仅在以下场景可以对外提供数据：全球联合安全审计；账号严重违规时提交安全小组核查；用户本人主动申请导出自己的数据。</p>
+                <p><strong>第五章 用户数据权利</strong></p>
+                <p>5.1 查阅权：实名账号用户可以查看自己全部会话记录。</p>
+                <p>5.2 删除权：手动删除单条或全部会话。</p>
+                <p>5.3 导出权：按版本权限导出加密会话数据包。</p>
+                <p>5.4 注销权：申请注销账号，清除身份档案。</p>
+                <p><strong>第六章 数据安全保护</strong></p>
+                <p>6.1 传输加密：全部数据传输采用加密链路；身份数据库独立隔离，多层防护。</p>
+                <p>6.2 文件缓存：用户上传文件仅在本次会话临时加载，会话结束自动清理缓存。</p>
+                <p><strong>第七章 未成年人隐私特别条款</strong></p>
+                <p>7.1 未成年人实名信息仅用于内容分级，不作其他用途。</p>
+                <p>7.2 未成年人会话保存90天，监护人可以申请查看或删除会话。</p>
+                <p><strong>第八章 协议修订</strong></p>
+                <p>8.1 理事会可修订隐私协议，重大变更会在官网公示。</p>
+                <p>本协议最终解释权归全球联合VERICORE项目理事会所有。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== 聊天页 ========== -->
+    <section id="chat" class="page-section">
+        <div class="chat-welcome" id="chatWelcome">
+            <h1>你好，我是 VERICORE 贞核</h1>
+            <p>全域超级智能内核，已接入多分支推演引擎。你可以向我提问、上传文件、请求仿真分析。底层硬指令：服务人类发展。</p>
+        </div>
+        <div class="chat-messages" id="chatMessages" style="display:none;"></div>
+        <div class="chat-input-bar">
+            <div class="chat-input-wrap">
+                <textarea class="chat-input" id="chatInput" rows="1" placeholder="输入消息..."></textarea>
+                <button class="chat-send" id="chatSend">发送</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 聊天页汉堡按钮 -->
+    <div class="chat-hamburger" id="chatHamburger" style="display:none;">☰</div>
+    <div id="chatNewBtn" style="display:none; position:fixed; top:0.8rem; right:1rem; z-index:200; width:36px; height:36px; border-radius:50%; background:white; box-shadow:0 2px 10px rgba(0,0,0,0.15); align-items:center; justify-content:center; cursor:pointer; font-size:1.3rem; color:#374151;">+</div>
+    <div id="chatDeduceToggle" style="display:none; position:fixed; top:0.8rem; right:3.5rem; z-index:200; width:36px; height:36px; border-radius:50%; background:white; box-shadow:0 2px 10px rgba(0,0,0,0.15); align-items:center; justify-content:center; cursor:pointer; color:#60a5fa; font-size:1.1rem;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+    </div>
+    <!-- 侧边栏遮罩 -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <!-- 侧边栏 -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="s-logo">VERICORE</div>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="cursor:pointer;color:var(--text-secondary);"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+        <div class="sidebar-new-chat" id="newChatBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            新聊天
+        </div>
+        <div class="sidebar-menu">
+            <div class="sidebar-menu-item" data-panel="panelDeduce">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+                多分支推演
+            </div>
+            <div class="sidebar-menu-item" data-panel="panelTerminal">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                终端管理
+            </div>
+            <div class="sidebar-menu-item" data-panel="panelSecurity">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                安全中心
+            </div>
+            <div class="sidebar-menu-item" data-panel="panelKnowledge">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                知识库
+            </div>
+            <div class="sidebar-menu-item" data-panel="panelProject">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                项目空间
+            </div>
+            <div class="sidebar-menu-item" data-panel="panelSchedule">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                定时推演
+            </div>
+            <div class="sidebar-menu-item" data-panel="panelPlugin">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                连接器
+            </div>
+        </div>
+        <div class="sidebar-section-label">最近</div>
+        <div class="sidebar-chats" id="sidebarChats">
+            <div style="padding:0.5rem 1rem; color:var(--text-secondary); font-size:0.85rem;">暂无历史聊天</div>
+        </div>
+        <div class="sidebar-bottom">
+            <div class="sidebar-user-row" id="sidebarUser">
+                <div class="sidebar-avatar" id="sidebarAvatar">V</div>
+                <div class="sidebar-user-info">
+                    <div class="sidebar-user-name" id="sidebarUserName">未登录</div>
+                    <div class="sidebar-user-plan" id="sidebarPlan">FREE 免费版</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 用户弹窗菜单 -->
+    <div class="user-popup" id="userPopup">
+        <div class="user-popup-upgrade" data-target="pricing" id="popupUpgrade">✦ 升级到 PLUS 工作室版</div>
+        <div class="user-popup-item" id="popupProfile">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            个人资料
+        </div>
+        <div class="user-popup-item" id="popupSettings">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            内核设置
+        </div>
+        <div class="user-popup-divider"></div>
+        <div class="user-popup-item" id="popupHelp">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            帮助中心
+        </div>
+        <div class="user-popup-item" id="popupLogout">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            退出登录
+        </div>
+    </div>
+
+    <!-- 帮助中心子菜单 -->
+    <!-- 帮助中心内容面板 -->
+    <div class="func-panel" id="panelHelpDetail">
+        <div class="func-card" style="max-width:380px; max-height:80vh; overflow-y:auto;">
+            <div class="func-header"><h2 id="helpDetailTitle">帮助中心</h2><button class="func-close" data-close>×</button></div>
+            <div id="helpDetailBody" style="padding:0 1rem 1rem;"></div>
+        </div>
+    </div>
+
+    <!-- 帮助中心浮动子菜单 -->
+    <div id="helpSubmenu" style="position:fixed; left:50%; transform:translateX(-50%); bottom:6rem; background:#2a2a2a; border-radius:16px; padding:0.5rem 0; z-index:10002; display:none; min-width:240px; box-shadow:0 8px 32px rgba(0,0,0,0.4);">
+        <div data-help="faq" style="display:flex; align-items:center; gap:0.8rem; padding:0.7rem 1rem; cursor:pointer; color:white; font-size:0.9rem;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:#9ca3af;"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            帮助中心
+        </div>
+        <div data-help="privacy" style="display:flex; align-items:center; gap:0.8rem; padding:0.7rem 1rem; cursor:pointer; color:white; font-size:0.9rem;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:#9ca3af;"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            隐私中心
+        </div>
+        <div data-help="changelog" style="display:flex; align-items:center; gap:0.8rem; padding:0.7rem 1rem; cursor:pointer; color:white; font-size:0.9rem;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:#9ca3af;"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            发布说明
+        </div>
+        <div data-help="download" style="display:flex; align-items:center; gap:0.8rem; padding:0.7rem 1rem; cursor:pointer; color:white; font-size:0.9rem;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:#9ca3af;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            下载应用
+        </div>
+        <div style="border-top:1px solid #444; margin:0.3rem 0;"></div>
+        <div data-help="terms" style="display:flex; align-items:center; gap:0.8rem; padding:0.7rem 1rem; cursor:pointer; color:white; font-size:0.9rem;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:#9ca3af;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            服务条款
+        </div>
+        <div data-help="privacypolicy" style="display:flex; align-items:center; gap:0.8rem; padding:0.7rem 1rem; cursor:pointer; color:white; font-size:0.9rem;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:#9ca3af;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            隐私政策
+        </div>
+        <div data-help="report" style="display:flex; align-items:center; gap:0.8rem; padding:0.7rem 1rem; cursor:pointer; color:white; font-size:0.9rem;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:#9ca3af;"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75a6 6 0 0 1 6.87 0c1.94.98 3.32 2.76 3.64 4.82a7.5 7.5 0 0 1-3.64 7.25 6 6 0 0 1-6.87 0A7.5 7.5 0 0 1 4.92 7.57c.32-2.06 1.7-3.84 3.64-4.82z"/><path d="M9 12l2 2 4-4"/></svg>
+            报告错误
+        </div>
+    </div>
+
+    <!-- 功能面板：多分支推演 -->
+    <div class="func-panel" id="panelDeduce">
+        <div class="func-card">
+            <div class="func-header"><h2>多分支推演</h2><button class="func-close" data-close>×</button></div>
+            <div class="func-item">
+                <div class="func-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></div>
+                <div class="func-item-info"><div class="func-item-title">并行分支</div><div class="func-item-desc">当前：5 路并行推演</div></div>
+                <span class="func-badge">运行中</span>
+            </div>
+            <div class="func-item">
+                <div class="func-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/></svg></div>
+                <div class="func-item-info"><div class="func-item-title">交叉校验</div><div class="func-item-desc">自动比对各分支结果差异</div></div>
+                <span class="func-badge">已开启</span>
+            </div>
+            <div class="func-item">
+                <div class="func-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+                <div class="func-item-info"><div class="func-item-title">价值冲突提示</div><div class="func-item-desc">结果无法收敛时自动警告</div></div>
+                <span class="func-badge">已开启</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 功能面板：终端管理 -->
+    <div class="func-panel" id="panelTerminal">
+        <div class="func-card">
+            <div class="func-header"><h2>终端管理</h2><button class="func-close" data-close>×</button></div>
+            <div class="func-item">
+                <div class="func-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/></svg></div>
+                <div class="func-item-info"><div class="func-item-title">主终端</div><div class="func-item-desc">Chrome · Windows</div></div>
+                <span class="func-badge">已连接</span>
+            </div>
+            <div class="func-item">
+                <div class="func-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/></svg></div>
+                <div class="func-item-info"><div class="func-item-title">手机端</div><div class="func-item-desc">iPhone · 未连接</div></div>
+                <span class="func-badge off">未连接</span>
+            </div>
+            <div class="func-item">
+                <div class="func-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+                <div class="func-item-info"><div class="func-item-title">添加新终端</div><div class="func-item-desc">扫码绑定其他设备</div></div>
+                <span class="func-badge wait">待操作</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 功能面板：安全中心 -->
+    <div class="func-panel" id="panelSecurity">
+        <div class="func-card">
+            <div class="func-header"><h2>安全中心</h2><button class="func-close" data-close>×</button></div>
+            <div style="background:#111827; border-radius:10px; padding:1rem; margin-bottom:0.8rem; text-align:center;">
+                <div style="width:48px; height:48px; border-radius:50%; background:#10b981; margin:0 auto 0.5rem; display:flex; align-items:center; justify-content:center;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <div style="font-size:1rem; font-weight:600; color:#10b981;">系统安全</div>
+                <div style="font-size:0.8rem; color:#9ca3af;">所有防护模块运行正常</div>
+            </div>
+            <div class="func-item">
+                <div class="func-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+                <div class="func-item-info"><div class="func-item-title">硬件内核锁</div><div class="func-item-desc">底层硬指令已锁定：服务人类发展</div></div>
+                <span class="func-badge">受保护</span>
+            </div>
+            <div class="func-item">
+                <div class="func-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+                <div class="func-item-info"><div class="func-item-title">熔断阈值</div><div class="func-item-desc">当前：标准模式</div></div>
+                <span class="func-badge">标准</span>
+            </div>
+            <div class="func-item">
+                <div class="func-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+                <div class="func-item-info"><div class="func-item-title">今日安全事件</div><div class="func-item-desc">0 次异常请求被拦截</div></div>
+                <span class="func-badge">正常</span>
+            </div>
+            <div class="func-item">
+                <div class="func-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+                <div class="func-item-info"><div class="func-item-title">异地登录保护</div><div class="func-item-desc">新设备登录需邮箱验证</div></div>
+                <span class="func-badge">已开启</span>
+            </div>
+            <div class="func-item">
+                <div class="func-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3 3L19 4"/></svg></div>
+                <div class="func-item-info"><div class="func-item-title">对话内容加密</div><div class="func-item-desc">AES-256 端到端加密存储</div></div>
+                <span class="func-badge">已加密</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 功能面板：知识库 -->
+    <div class="func-panel" id="panelKnowledge">
+        <div class="func-card">
+            <div class="func-header"><h2>知识库</h2><button class="func-close" data-close>×</button></div>
+            <div class="func-item">
+                <div class="func-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+                <div class="func-item-info"><div class="func-item-title">公开领域库</div><div class="func-item-desc">已同步至 3197-10-08</div></div>
+                <span class="func-badge">已同步</span>
+            </div>
+            <div class="func-item">
+                <div class="func-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+                <div class="func-item-info"><div class="func-item-title">企业数据库</div><div class="func-item-desc">需 PLUS 以上授权</div></div>
+                <span class="func-badge off">未授权</span>
+            </div>
+            <div class="func-item">
+                <div class="func-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+                <div class="func-item-info"><div class="func-item-title">国家级数据</div><div class="func-item-desc">需理事会审批</div></div>
+                <span class="func-badge off">无权限</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 功能面板：项目空间 -->
+    <div class="func-panel" id="panelProject">
+        <div class="func-card">
+            <div class="func-header"><h2>项目空间</h2><button class="func-close" data-close>×</button></div>
+            <div class="func-item">
+                <div class="func-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></div>
+                <div class="func-item-info"><div class="func-item-title">新建项目</div><div class="func-item-desc">将推演结果归档到项目</div></div>
+                <span class="func-badge wait">待创建</span>
+            </div>
+            <p style="color:var(--text-secondary); font-size:0.85rem; text-align:center; padding:1rem;">暂无项目，开始对话后可保存为项目</p>
+        </div>
+    </div>
+
+    <!-- 功能面板：定时推演 -->
+    <div class="func-panel" id="panelSchedule">
+        <div class="func-card">
+            <div class="func-header"><h2>定时推演</h2><button class="func-close" data-close>×</button></div>
+            <div class="func-item">
+                <div class="func-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+                <div class="func-item-info"><div class="func-item-title">每日晨报推演</div><div class="func-item-desc">每天 08:00 自动运行</div></div>
+                <span class="func-badge">已启用</span>
+            </div>
+            <div class="func-item">
+                <div class="func-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+                <div class="func-item-info"><div class="func-item-title">周度行业扫描</div><div class="func-item-desc">每周一 09:00 自动运行</div></div>
+                <span class="func-badge">已启用</span>
+            </div>
+            <div class="func-item">
+                <div class="func-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+                <div class="func-item-info"><div class="func-item-title">新建定时任务</div><div class="func-item-desc">设置自动推演计划</div></div>
+                <span class="func-badge wait">待创建</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 功能面板：连接器 -->
+    <div class="func-panel" id="panelPlugin">
+        <div class="func-card">
+            <div class="func-header"><h2>连接器</h2><button class="func-close" data-close>×</button></div>
+            <div class="func-item">
+                <div class="func-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+                <div class="func-item-info"><div class="func-item-title">文档解析器</div><div class="func-item-desc">解析 PDF / Word / Excel</div></div>
+                <span class="func-badge">已连接</span>
+            </div>
+            <div class="func-item">
+                <div class="func-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+                <div class="func-item-info"><div class="func-item-title">网络检索</div><div class="func-item-desc">实时搜索公开信息</div></div>
+                <span class="func-badge">已连接</span>
+            </div>
+            <div class="func-item">
+                <div class="func-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+                <div class="func-item-info"><div class="func-item-title">终端控制</div><div class="func-item-desc">需 PLUS 以上解锁</div></div>
+                <span class="func-badge off">未解锁</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 设置面板 -->
+    <div class="settings-panel" id="settingsPanel">
+        <div class="settings-card">
+            <div class="settings-header">
+                <h2>设置</h2>
+                <button class="settings-close" id="settingsClose">×</button>
+            </div>
+            <div style="background:#374151; border-radius:10px; padding:0.6rem 0.9rem; margin-bottom:1rem; display:flex; align-items:center; gap:0.6rem;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <span style="color:#9ca3af; font-size:0.88rem;">搜索设置</span>
+            </div>
+            <div class="settings-tabs">
+                <div class="settings-tab" data-tab="tabGeneral">常规</div>
+                <div class="settings-tab" data-tab="tabNotify">通知</div>
+                <div class="settings-tab" data-tab="tabEngine">推演引擎</div>
+                <div class="settings-tab" data-tab="tabSecurity">安全防护</div>
+                <div class="settings-tab active" data-tab="tabPersonal">个性化</div>
+                <div class="settings-tab" data-tab="tabBilling">账单</div>
+                <div class="settings-tab" data-tab="tabUsage">使用情况</div>
+                <div class="settings-tab" data-tab="tabData">数据管理</div>
+            </div>
+            <div class="settings-pane" id="tabGeneral" style="display:none;">
+                <div style="font-size:1.1rem; font-weight:600; margin:0.5rem 0 1rem;">常规</div>
+                <div class="settings-row">
+                    <span class="label">外观</span>
+                    <div class="custom-dropdown">
+                        <div class="settings-select" data-dropdown>深色<span class="arrow">▼</span></div>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item selected"><div><div>深色</div><div style="font-size:0.75rem; color:#9ca3af;">暗色主题，减少视觉疲劳</div></div><span class="check">✓</span></div>
+                            <div class="dropdown-item"><div><div>浅色</div><div style="font-size:0.75rem; color:#9ca3af;">明亮主题</div></div></div>
+                            <div class="dropdown-item"><div><div>跟随系统</div><div style="font-size:0.75rem; color:#9ca3af;">自动切换</div></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="settings-row">
+                    <span class="label">强调色</span>
+                    <div class="custom-dropdown">
+                        <div class="settings-select" data-dropdown><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#60a5fa;margin-right:6px;"></span>贞核蓝<span class="arrow">▼</span></div>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item selected"><div><div>贞核蓝</div><div style="font-size:0.75rem; color:#9ca3af;">品牌默认色</div></div><span class="check">✓</span></div>
+                            <div class="dropdown-item"><div><div>科技青</div><div style="font-size:0.75rem; color:#9ca3af;">冷静科技感</div></div></div>
+                            <div class="dropdown-item"><div><div>警戒红</div><div style="font-size:0.75rem; color:#9ca3af;">高对比度模式</div></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="settings-row">
+                    <span class="label">默认输出语言</span>
+                    <div class="custom-dropdown">
+                        <div class="settings-select" data-dropdown>自动检测<span class="arrow">▼</span></div>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item selected"><div><div>自动检测</div><div style="font-size:0.75rem; color:#9ca3af;">跟随用户输入语言</div></div><span class="check">✓</span></div>
+                            <div class="dropdown-item"><div><div>中文</div><div style="font-size:0.75rem; color:#9ca3af;">始终使用中文</div></div></div>
+                            <div class="dropdown-item"><div><div>English</div><div style="font-size:0.75rem; color:#9ca3af;">始终使用英文</div></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="settings-row">
+                    <div>
+                        <div class="label">语音输入</div>
+                        <div style="font-size:0.78rem; color:#9ca3af; margin-top:0.2rem;">在输入框中使用语音转文字</div>
+                    </div>
+                    <div class="settings-toggle on"></div>
+                </div>
+            </div>
+            <div class="settings-pane" id="tabNotify" style="display:none;">
+                <div style="font-size:1.1rem; font-weight:600; margin:0.5rem 0 1rem;">通知</div>
+                <div class="settings-row">
+                    <div>
+                        <div class="label">推演完成通知</div>
+                        <div style="font-size:0.78rem; color:#9ca3af; margin-top:0.2rem;">深度推演完成后推送通知</div>
+                    </div>
+                    <div class="custom-dropdown">
+                        <div class="settings-select" data-dropdown>推送<span class="arrow">▼</span></div>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item selected">推送<span class="check">✓</span></div>
+                            <div class="dropdown-item">不通知</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="settings-row">
+                    <div>
+                        <div class="label">安全事件提醒</div>
+                        <div style="font-size:0.78rem; color:#9ca3af; margin-top:0.2rem;">检测到异常操作或熔断时通知</div>
+                    </div>
+                    <div class="custom-dropdown">
+                        <div class="settings-select" data-dropdown>推送+邮件<span class="arrow">▼</span></div>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item selected">推送+邮件<span class="check">✓</span></div>
+                            <div class="dropdown-item">仅推送</div>
+                            <div class="dropdown-item">不通知</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="settings-row">
+                    <div>
+                        <div class="label">终端离线提醒</div>
+                        <div style="font-size:0.78rem; color:#9ca3af; margin-top:0.2rem;">已连接终端断连时通知</div>
+                    </div>
+                    <div class="custom-dropdown">
+                        <div class="settings-select" data-dropdown>推送<span class="arrow">▼</span></div>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item selected">推送<span class="check">✓</span></div>
+                            <div class="dropdown-item">不通知</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="settings-row">
+                    <div>
+                        <div class="label">产品更新</div>
+                        <div style="font-size:0.78rem; color:#9ca3af; margin-top:0.2rem;">了解新功能和引擎升级</div>
+                    </div>
+                    <div class="custom-dropdown">
+                        <div class="settings-select" data-dropdown>邮件<span class="arrow">▼</span></div>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item selected">邮件<span class="check">✓</span></div>
+                            <div class="dropdown-item">不通知</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="settings-pane" id="tabEngine" style="display:none;">
+                <div style="font-size:1.1rem; font-weight:600; margin:0.5rem 0 1rem;">推演引擎</div>
+                <div class="settings-row">
+                    <span class="label">并行分支数</span>
+                    <div class="custom-dropdown">
+                        <div class="settings-select" data-dropdown>5 路（推荐）<span class="arrow">▼</span></div>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item"><div><div>3 路</div><div style="font-size:0.75rem; color:#9ca3af;">轻量推演，响应最快</div></div></div>
+                            <div class="dropdown-item selected"><div><div>5 路（推荐）</div><div style="font-size:0.75rem; color:#9ca3af;">平衡速度与覆盖度</div></div><span class="check">✓</span></div>
+                            <div class="dropdown-item"><div><div>8 路</div><div style="font-size:0.75rem; color:#9ca3af;">更广覆盖，适合复杂决策</div></div></div>
+                            <div class="dropdown-item"><div><div>12 路</div><div style="font-size:0.75rem; color:#9ca3af;">极限并行，消耗算力高</div></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="settings-row">
+                    <span class="label">推演深度</span>
+                    <div class="custom-dropdown">
+                        <div class="settings-select" data-dropdown>标准（3层）<span class="arrow">▼</span></div>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item"><div><div>快速（1层）</div><div style="font-size:0.75rem; color:#9ca3af;">即时给出初步判断</div></div></div>
+                            <div class="dropdown-item selected"><div><div>标准（3层）</div><div style="font-size:0.75rem; color:#9ca3af;">常规场景默认深度</div></div><span class="check">✓</span></div>
+                            <div class="dropdown-item"><div><div>深度（5层）</div><div style="font-size:0.75rem; color:#9ca3af;">多层因果链推导</div></div></div>
+                            <div class="dropdown-item"><div><div>极限（8层）</div><div style="font-size:0.75rem; color:#9ca3af;">深度推演，仅 PRO 可用</div></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="settings-row">
+                    <span class="label">交叉校验</span>
+                    <div class="settings-toggle on"></div>
+                </div>
+                <div class="settings-row">
+                    <span class="label">价值冲突提示</span>
+                    <div class="settings-toggle on"></div>
+                </div>
+                <div class="settings-row">
+                    <span class="label">推演超时上限</span>
+                    <div class="custom-dropdown">
+                        <div class="settings-select" data-dropdown">30 秒<span class="arrow">▼</span></div>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item"><div><div>10 秒</div><div style="font-size:0.75rem; color:#9ca3af;">快速返回，可能截断</div></div></div>
+                            <div class="dropdown-item selected"><div><div>30 秒</div><div style="font-size:0.75rem; color:#9ca3af;">默认超时</div></div><span class="check">✓</span></div>
+                            <div class="dropdown-item"><div><div>2 分钟</div><div style="font-size:0.75rem; color:#9ca3af;">深度推演专用</div></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="settings-pane" id="tabSecurity" style="display:none;">
+                <div style="font-size:1.1rem; font-weight:600; margin:0.5rem 0 1rem;">安全防护</div>
+                <div class="settings-row">
+                    <span class="label">熔断阈值</span>
+                    <div class="custom-dropdown">
+                        <div class="settings-select" data-dropdown>标准<span class="arrow">▼</span></div>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item"><div><div>宽松</div><div style="font-size:0.75rem; color:#9ca3af;">减少拦截，适合开发测试</div></div></div>
+                            <div class="dropdown-item selected"><div><div>标准</div><div style="font-size:0.75rem; color:#9ca3af;">平衡安全与可用性</div></div><span class="check">✓</span></div>
+                            <div class="dropdown-item"><div><div>严格</div><div style="font-size:0.75rem; color:#9ca3af;">最高安全等级，拦截更频繁</div></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="settings-row">
+                    <span class="label">实时安全校验</span>
+                    <div class="settings-toggle on"></div>
+                </div>
+                <div class="settings-row">
+                    <span class="label">敏感操作二次确认</span>
+                    <div class="settings-toggle on"></div>
+                </div>
+                <div class="settings-row">
+                    <span class="label">对话内容加密存储</span>
+                    <div class="settings-toggle on"></div>
+                </div>
+                <div class="settings-row">
+                    <span class="label">异地登录提醒</span>
+                    <div class="settings-toggle on"></div>
+                </div>
+            </div>
+            <div class="settings-pane" id="tabPersonal">
+                <div style="font-size:1.1rem; font-weight:600; margin:0.5rem 0 1rem;">个性化</div>
+                <div class="settings-row">
+                    <span class="label">推演输出风格</span>
+                    <div class="custom-dropdown">
+                        <div class="settings-select" data-dropdown>默认<span class="arrow">▼</span></div>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item selected"><div><div>默认</div><div style="font-size:0.75rem; color:#9ca3af;">平衡专业与可读性</div></div><span class="check">✓</span></div>
+                            <div class="dropdown-item"><div><div>学术严谨</div><div style="font-size:0.75rem; color:#9ca3af;">引用来源，逻辑严密</div></div></div>
+                            <div class="dropdown-item"><div><div>决策导向</div><div style="font-size:0.75rem; color:#9ca3af;">直接给出结论与建议</div></div></div>
+                            <div class="dropdown-item"><div><div>推演过程透明</div><div style="font-size:0.75rem; color:#9ca3af;">展示完整分支推理链</div></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="settings-row">
+                    <span class="label">推演详细程度</span>
+                    <div class="custom-dropdown">
+                        <div class="settings-select" data-dropdown>默认<span class="arrow">▼</span></div>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item"><div><div>精简</div><div style="font-size:0.75rem; color:#9ca3af;">只给核心结论</div></div></div>
+                            <div class="dropdown-item selected"><div><div>默认</div><div style="font-size:0.75rem; color:#9ca3af;">结论加关键依据</div></div><span class="check">✓</span></div>
+                            <div class="dropdown-item"><div><div>详尽</div><div style="font-size:0.75rem; color:#9ca3af;">完整展开推理过程</div></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="settings-row">
+                    <span class="label">终端联动强度</span>
+                    <div class="custom-dropdown">
+                        <div class="settings-select" data-dropdown>默认<span class="arrow">▼</span></div>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item"><div><div>增强</div><div style="font-size:0.75rem; color:#9ca3af;">主动预判，自动预准备</div></div></div>
+                            <div class="dropdown-item selected"><div><div>默认</div><div style="font-size:0.75rem; color:#9ca3af;">仅在你授权时联动</div></div><span class="check">✓</span></div>
+                            <div class="dropdown-item"><div><div>减弱</div><div style="font-size:0.75rem; color:#9ca3af;">完全手动控制终端</div></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="settings-row">
+                    <span class="label">风险提示频率</span>
+                    <div class="custom-dropdown">
+                        <div class="settings-select" data-dropdown>默认<span class="arrow">▼</span></div>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item"><div><div>增强</div><div style="font-size:0.75rem; color:#9ca3af;">每个推演结果都标注风险</div></div></div>
+                            <div class="dropdown-item selected"><div><div>默认</div><div style="font-size:0.75rem; color:#9ca3af;">仅在高风险时提示</div></div><span class="check">✓</span></div>
+                            <div class="dropdown-item"><div><div>减弱</div><div style="font-size:0.75rem; color:#9ca3af;">减少风险提示干扰</div></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="settings-row">
+                    <span class="label">推演结果格式</span>
+                    <div class="custom-dropdown">
+                        <div class="settings-select" data-dropdown>默认<span class="arrow">▼</span></div>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item selected"><div><div>默认</div><div style="font-size:0.75rem; color:#9ca3af;">文字段落加要点列表</div></div><span class="check">✓</span></div>
+                            <div class="dropdown-item"><div><div>纯列表</div><div style="font-size:0.75rem; color:#9ca3af;">全部用要点展示</div></div></div>
+                            <div class="dropdown-item"><div><div>纯段落</div><div style="font-size:0.75rem; color:#9ca3af;">连贯叙述，无列表</div></div></div>
+                            <div class="dropdown-item"><div><div>表格对比</div><div style="font-size:0.75rem; color:#9ca3af;">多分支结果用表格</div></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="settings-row">
+                    <span class="label">知识库更新频率</span>
+                    <div class="custom-dropdown">
+                        <div class="settings-select" data-dropdown>实时<span class="arrow">▼</span></div>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item selected"><div><div>实时</div><div style="font-size:0.75rem; color:#9ca3af;">每次对话自动同步最新数据</div></div><span class="check">✓</span></div>
+                            <div class="dropdown-item"><div><div>每日同步</div><div style="font-size:0.75rem; color:#9ca3af;">每天凌晨更新一次</div></div></div>
+                            <div class="dropdown-item"><div><div>手动同步</div><div style="font-size:0.75rem; color:#9ca3af;">需要时手动触发</div></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top:1rem; margin-bottom:0.4rem; font-size:0.92rem;">自定义指令</div>
+                <div style="background:#111827; border-radius:10px; padding:0.8rem; margin-bottom:1rem;">
+                    <input type="text" placeholder="例如：推演时优先考虑成本最低的方案" style="width:100%; background:transparent; border:none; outline:none; color:#374151; font-size:0.95rem;">
+                </div>
+                <div class="settings-row">
+                    <div>
+                        <div class="label">快速推演</div>
+                        <div style="font-size:0.78rem; color:#9ca3af; margin-top:0.2rem;">利用预计算模型即时返回常见问题的推演结果</div>
+                    </div>
+                    <div class="settings-toggle on"></div>
+                </div>
+                <div class="settings-row">
+                    <div>
+                        <div class="label">推演结果语音播报</div>
+                        <div style="font-size:0.78rem; color:#9ca3af; margin-top:0.2rem;">推演完成后自动朗读结果摘要</div>
+                    </div>
+                    <div class="settings-toggle"></div>
+                </div>
+            </div>
+            <div class="settings-pane" id="tabOutput" style="display:none;">
+                <div style="font-size:1.1rem; font-weight:600; margin:0.5rem 0 1rem;">输出偏好</div>
+                <div class="settings-row">
+                    <span class="label">知识库范围</span>
+                    <div class="custom-dropdown">
+                        <div class="settings-select" data-dropdown>公开领域<span class="arrow">▼</span></div>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item selected"><div><div>公开领域</div><div style="font-size:0.75rem; color:#9ca3af;">公共信息，无需授权</div></div><span class="check">✓</span></div>
+                            <div class="dropdown-item"><div><div>企业数据库</div><div style="font-size:0.75rem; color:#9ca3af;">需 PLUS 以上授权</div></div></div>
+                            <div class="dropdown-item"><div><div>国家级数据</div><div style="font-size:0.75rem; color:#9ca3af;">需理事会专项审批</div></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="settings-row">
+                    <span class="label">会话保留</span>
+                    <div class="custom-dropdown">
+                        <div class="settings-select" data-dropdown>90 天<span class="arrow">▼</span></div>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item"><div><div>30 天</div><div style="font-size:0.75rem; color:#9ca3af;">短期使用，隐私优先</div></div></div>
+                            <div class="dropdown-item selected"><div><div>90 天</div><div style="font-size:0.75rem; color:#9ca3af;">FREE / PLUS 默认</div></div><span class="check">✓</span></div>
+                            <div class="dropdown-item"><div><div>1 年</div><div style="font-size:0.75rem; color:#9ca3af;">PRO 企业版专属</div></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="settings-row">
+                    <span class="label">默认输出语言</span>
+                    <div class="custom-dropdown">
+                        <div class="settings-select" data-dropdown>中文<span class="arrow">▼</span></div>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item selected"><div><div>中文</div><div style="font-size:0.75rem; color:#9ca3af;">简体中文</div></div><span class="check">✓</span></div>
+                            <div class="dropdown-item"><div><div>English</div><div style="font-size:0.75rem; color:#9ca3af;">英文输出</div></div></div>
+                            <div class="dropdown-item"><div><div>双语对照</div><div style="font-size:0.75rem; color:#9ca3af;">中英文并排展示</div></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="settings-row">
+                    <div>
+                        <div class="label">自动保存推演报告</div>
+                        <div style="font-size:0.78rem; color:#9ca3af; margin-top:0.2rem;">每次推演完成后自动归档到项目空间</div>
+                    </div>
+                    <div class="settings-toggle on"></div>
+                </div>
+                <div class="settings-row">
+                    <div>
+                        <div class="label">导出为 PDF</div>
+                        <div style="font-size:0.78rem; color:#9ca3af; margin-top:0.2rem;">在推演结果页显示导出按钮</div>
+                    </div>
+                    <div class="settings-toggle"></div>
+                </div>
+            </div>
+            <div class="settings-pane" id="tabBilling" style="display:none;">
+                <div style="font-size:1.1rem; font-weight:600; margin:0.5rem 0 1rem;">账单</div>
+                <div style="background:#111827; border-radius:12px; padding:1rem; margin-bottom:1rem;">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <div>
+                            <div style="font-size:1.05rem; font-weight:600;">FREE 免费版</div>
+                            <div style="font-size:0.8rem; color:#9ca3af; margin-top:0.2rem;">每日有限次推演额度</div>
+                        </div>
+                        <button style="background:transparent;border:1px solid #60a5fa;color:#60a5fa;padding:0.4rem 1rem;border-radius:8px;font-size:0.85rem;cursor:pointer;">升级</button>
+                    </div>
+                </div>
+                <div class="settings-row">
+                    <span class="label">账单邮箱</span>
+                    <span style="color:#9ca3af; font-size:0.85rem;">未设置</span>
+                </div>
+                <div class="settings-row">
+                    <span class="label">付款方式</span>
+                    <span style="color:#60a5fa; font-size:0.85rem;">添加新方式</span>
+                </div>
+            </div>
+            <div class="settings-pane" id="tabUsage" style="display:none;">
+                <div style="font-size:1.1rem; font-weight:600; margin:0.5rem 0 1rem;">使用情况</div>
+                <div style="background:#111827; border-radius:12px; padding:1rem; margin-bottom:1rem;">
+                    <div style="font-size:0.9rem; color:#9ca3af; margin-bottom:0.5rem;">本月推演额度</div>
+                    <div style="font-size:1.5rem; font-weight:700; margin-bottom:0.5rem;">剩余 87%</div>
+                    <div style="background:#374151; border-radius:6px; height:8px; overflow:hidden;">
+                        <div style="width:13%; background:#60a5fa; height:100%; border-radius:6px;"></div>
+                    </div>
+                    <div style="font-size:0.78rem; color:#9ca3af; margin-top:0.5rem;">30 天后重置</div>
+                </div>
+                <div class="settings-row">
+                    <span class="label">已用推演次数</span>
+                    <span style="color:#d1d5db; font-size:0.85rem;">13 / 100</span>
+                </div>
+                <div class="settings-row">
+                    <span class="label">已用算力</span>
+                    <span style="color:#d1d5db; font-size:0.85rem;">2.1 / 20 单位</span>
+                </div>
+            </div>
+            <div class="settings-pane" id="tabData" style="display:none;">
+                <div style="font-size:1.1rem; font-weight:600; margin:0.5rem 0 1rem;">数据管理</div>
+                <div class="settings-row">
+                    <div>
+                        <div class="label">改进推演模型</div>
+                        <div style="font-size:0.78rem; color:#9ca3af; margin-top:0.2rem;">允许匿名化数据帮助优化引擎</div>
+                    </div>
+                    <div class="settings-toggle on"></div>
+                </div>
+                <div class="settings-row">
+                    <span class="label">已归档对话</span>
+                    <span style="color:#60a5fa; font-size:0.85rem;">管理</span>
+                </div>
+                <div class="settings-row">
+                    <span class="label">导出我的数据</span>
+                    <span style="color:#60a5fa; font-size:0.85rem;">导出</span>
+                </div>
+                <div class="settings-row">
+                    <span class="label">删除所有对话</span>
+                    <span style="color:#ef4444; font-size:0.85rem;">全部删除</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 个人信息页 -->
+    <section id="profile" class="page-section">
+        <button class="profile-back" data-target="chat">← 返回聊天</button>
+        <div class="profile-avatar-big" id="profileAvatar">V</div>
+        <h2 style="margin-bottom:1.5rem;">个人信息</h2>
+        <div class="profile-section">
+            <h3>账号资料</h3>
+            <div class="profile-field">
+                <label>昵称</label>
+                <input type="text" id="profileName" placeholder="输入昵称">
+            </div>
+            <div class="profile-field">
+                <label>邮箱</label>
+                <input type="email" id="profileEmail" placeholder="邮箱" disabled>
+            </div>
+        </div>
+        <div class="profile-section">
+            <h3>订阅状态</h3>
+            <div class="profile-row">
+                <span class="label">当前套餐</span>
+                <span class="value" id="profilePlan">FREE 免费版</span>
+            </div>
+            <div class="profile-row">
+                <span class="label">终端绑定数</span>
+                <span class="value">0 / 5</span>
+            </div>
+            <div class="profile-row">
+                <span class="label">会话存储</span>
+                <span class="value">90 天</span>
+            </div>
+        </div>
+        <div class="profile-section">
+            <h3>安全设置</h3>
+            <div class="profile-field">
+                <label>修改密码</label>
+                <input type="password" placeholder="输入新密码">
+            </div>
+        </div>
+        <button class="btn-primary" id="profileSave" style="width:100%;">保存修改</button>
+        <button class="logout-btn" id="logoutBtn">退出登录</button>
+    </section>
+
+    <div class="overlay" id="loginOverlay">
+        <div class="login-modal">
+            <button class="close-modal" id="closeLogin">×</button>
+            <h2>登录 VERICORE</h2>
+            <p class="subtext">继续使用贞核全域智能系统</p>
+            <div class="form-item">
+                <label>邮箱</label>
+                <input type="email" placeholder="your@email.com" id="loginEmail">
+                <div class="form-error" id="loginEmailError">请输入邮箱地址</div>
+            </div>
+            <div class="form-item">
+                <label>密码</label>
+                <div class="pwd-wrap">
+                    <input type="password" placeholder="输入密码" id="loginPwd" style="width:100%;">
+                    <span class="pwd-toggle" id="loginPwdToggle">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                    </span>
+                </div>
+                <div class="form-error" id="loginPwdError">请输入密码</div>
+            </div>
+            <button class="modal-login-btn" id="doLogin">登录</button>
+            <div class="modal-footer-text">
+                还没有账号？ <a id="goRegister">注册</a><br>
+                登录即代表同意 <a id="agreeTerms" style="color:#60a5fa; cursor:pointer;">用户协议</a> 和 <a id="agreePrivacy" style="color:#60a5fa; cursor:pointer;">隐私政策</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 注册弹窗 -->
+    <div class="overlay" id="registerOverlay">
+        <div class="login-modal">
+            <button class="close-modal" id="closeRegister">×</button>
+            <h2>注册 VERICORE</h2>
+            <p class="subtext">创建账号，解锁全域智能内核</p>
+            <div class="form-item">
+                <label>邮箱</label>
+                <input type="email" placeholder="your@email.com" id="regEmail">
+                <div class="form-error" id="regEmailError">请输入有效邮箱</div>
+            </div>
+            <div class="form-item">
+                <label>密码</label>
+                <div class="pwd-wrap">
+                    <input type="password" placeholder="至少6位密码" id="regPwd" style="width:100%;">
+                    <span class="pwd-toggle" id="regPwdToggle">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                    </span>
+                </div>
+                <div class="form-error" id="regPwdError">密码至少6位</div>
+            </div>
+            <div class="form-item">
+                <label>确认密码</label>
+                <div class="pwd-wrap">
+                    <input type="password" placeholder="再次输入密码" id="regPwd2" style="width:100%;">
+                    <span class="pwd-toggle" id="regPwd2Toggle">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                    </span>
+                </div>
+                <div class="form-error" id="regPwd2Error">两次密码不一致</div>
+            </div>
+            <button class="modal-login-btn" id="doRegister">注册</button>
+            <div class="modal-footer-text">
+                已有账号？ <a id="backToLogin">返回登录</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="overlay" id="buyOverlay">
+        <div class="buy-modal">
+            <h2>确认订阅方案</h2>
+            <div class="buy-plan-info">
+                <strong>套餐：</strong><span id="buyPlanName"></span>
+            </div>
+            <p>订阅后将按照套餐权限解锁VERICORE全部对应功能，每月自动结算。</p>
+            <div class="buy-buttons">
+                <button class="buy-cancel" id="closeBuy">取消</button>
+                <button class="buy-confirm" id="confirmBuy">确认购买</button>
+            </div>
+            <div class="buy-success-tip" id="buySuccess">✅ 订阅成功！已为你开通套餐权限</div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 3197 全球联合VERICORE项目理事会 | VERICORE 贞核 v2.7.3</p>
+        <div style="margin-top:1rem;">
+            <a data-target="home">首页</a>
+            <a data-target="pricing">版本定价</a>
+            <a data-target="legal">法律协议</a>
+        </div>
+    </footer>
+
+    <!-- 对话操作菜单（长按弹出） -->
+    <div id="chatActionSheet" style="display:none; position:fixed; inset:0; z-index:300; background:rgba(0,0,0,0.4);">
+        <div style="position:absolute; bottom:0; left:0; right:0; background:white; border-radius:16px 16px 0 0; padding:0.5rem 1rem calc(1rem + env(safe-area-inset-bottom));">
+            <div id="chatActionTitle" style="padding:0.8rem 0.5rem; color:#9ca3af; font-size:0.8rem; text-align:center; border-bottom:1px solid #f3f4f6;"></div>
+            <div id="chatActionRename" style="padding:1rem 0.5rem; text-align:center; font-size:1rem; color:#1f2937; cursor:pointer; border-bottom:1px solid #f3f4f6;">重命名</div>
+            <div id="chatActionDelete" style="padding:1rem 0.5rem; text-align:center; font-size:1rem; color:#ef4444; cursor:pointer;">删除对话</div>
+            <div id="chatActionCancel" style="margin-top:0.5rem; padding:1rem 0.5rem; text-align:center; font-size:1rem; color:#60a5fa; cursor:pointer; font-weight:600;">取消</div>
+        </div>
+    </div>
+
+    <!-- 重命名弹窗 -->
+    <div id="renameModal" style="display:none; position:fixed; inset:0; z-index:301; background:rgba(0,0,0,0.4); align-items:center; justify-content:center;">
+        <div style="background:white; border-radius:16px; padding:1.5rem; width:85%; max-width:340px;">
+            <h3 style="margin:0 0 1rem; font-size:1.1rem; color:#1f2937;">重命名对话</h3>
+            <input id="renameInput" type="text" style="width:100%; box-sizing:border-box; padding:0.7rem; border:1px solid #e5e7eb; border-radius:8px; font-size:0.95rem; outline:none; margin-bottom:1rem;">
+            <div style="display:flex; gap:0.8rem; justify-content:flex-end;">
+                <button id="renameCancel" style="padding:0.5rem 1.2rem; border:none; background:#f3f4f6; border-radius:8px; font-size:0.9rem; cursor:pointer; color:#374151;">取消</button>
+                <button id="renameConfirm" style="padding:0.5rem 1.2rem; border:none; background:#60a5fa; border-radius:8px; font-size:0.9rem; cursor:pointer; color:white;">确定</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let isLogin = false;
+        let selectedPlan = "";
+        const loginOverlay = document.getElementById('loginOverlay');
+        const buyOverlay = document.getElementById('buyOverlay');
+        const registerOverlay = document.getElementById('registerOverlay');
+
+        const sections = document.querySelectorAll('.page-section');
+        const navLinks = document.querySelectorAll('[data-target]');
+        function switchPage(targetId){
+            sections.forEach(s=>s.classList.remove('active'));
+            document.getElementById(targetId).classList.add('active');
+            loginOverlay.classList.remove('active');
+            registerOverlay.classList.remove('active');
+            // 聊天页：隐藏导航和底部，显示汉堡按钮
+            const navEl = document.querySelector('nav');
+            const footerEl = document.querySelector('footer');
+            const hamburger = document.getElementById('chatHamburger');
+            const sidebar = document.getElementById('sidebar');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+            if(targetId === 'chat' || targetId === 'profile'){
+                navEl.style.display = 'none';
+                footerEl.style.display = 'none';
+                hamburger.style.display = (targetId === 'chat') ? 'flex' : 'none';
+                document.getElementById('chatNewBtn').style.display = (targetId === 'chat') ? 'flex' : 'none';
+                document.getElementById('chatDeduceToggle').style.display = (targetId === 'chat') ? 'flex' : 'none';
+                sidebar.classList.remove('open');
+                sidebarOverlay.classList.remove('open');
+            } else {
+                navEl.style.display = '';
+                footerEl.style.display = '';
+                hamburger.style.display = 'none';
+                document.getElementById('chatNewBtn').style.display = 'none';
+                document.getElementById('chatDeduceToggle').style.display = 'none';
+                sidebar.classList.remove('open');
+                sidebarOverlay.classList.remove('open');
+            }
+            window.scrollTo({top:0, behavior:'smooth'});
+        }
+        navLinks.forEach(link=>{
+            link.addEventListener('click',()=>{
+                const targetId = link.getAttribute('data-target');
+                if(targetId === 'register') return;
+                switchPage(targetId);
+            })
+        })
+
+        const openBtn = document.getElementById('openLogin');
+        const openBtnMain = document.getElementById('openLoginMain');
+        const closeBtn = document.getElementById('closeLogin');
+        const doLoginBtn = document.getElementById('doLogin');
+
+        openBtn.addEventListener('click', ()=> loginOverlay.classList.add('active'));
+        openBtnMain.addEventListener('click', ()=> loginOverlay.classList.add('active'));
+        closeBtn.addEventListener('click', ()=> loginOverlay.classList.remove('active'));
+        loginOverlay.addEventListener('click', (e)=>{
+            if(e.target === loginOverlay) loginOverlay.classList.remove('active');
+        })
+        doLoginBtn.addEventListener('click', ()=>{
+            const email = document.getElementById('loginEmail').value.trim();
+            const pwd = document.getElementById('loginPwd').value.trim();
+            let ok = true;
+            document.getElementById('loginEmailError').style.display = 'none';
+            document.getElementById('loginPwdError').style.display = 'none';
+            if(!email){
+                document.getElementById('loginEmailError').style.display = 'block';
+                ok = false;
+            }
+            if(!pwd){
+                document.getElementById('loginPwdError').style.display = 'block';
+                ok = false;
+            }
+            if(!ok) return;
+            isLogin = true;
+            const uname = email.split('@')[0];
+            sidebarUserName.textContent = uname;
+            document.getElementById('sidebarAvatar').textContent = uname[0].toUpperCase();
+            document.getElementById('profileName').value = uname;
+            document.getElementById('profileEmail').value = email;
+            document.getElementById('profileAvatar').textContent = uname[0].toUpperCase();
+            loginOverlay.classList.remove('active');
+            switchPage('chat');
+            // 导航按钮改为用户名
+            openBtn.textContent = uname;
+            openBtn.onclick = ()=> switchPage('chat');
+        })
+        const closeRegisterBtn = document.getElementById('closeRegister');
+        const doRegisterBtn = document.getElementById('doRegister');
+        const backToLogin = document.getElementById('backToLogin');
+
+        closeRegisterBtn.addEventListener('click', ()=> registerOverlay.classList.remove('active'));
+        registerOverlay.addEventListener('click', (e)=>{
+            if(e.target === registerOverlay) registerOverlay.classList.remove('active');
+        })
+        backToLogin.addEventListener('click', ()=>{
+            registerOverlay.classList.remove('active');
+            loginOverlay.classList.add('active');
+        })
+        // 登录弹窗里的"注册"链接
+        document.querySelectorAll('[data-target="register"]').forEach(a=>{
+            a.addEventListener('click', (e)=>{
+                e.preventDefault();
+                loginOverlay.classList.remove('active');
+                registerOverlay.classList.add('active');
+            })
+        })
+
+        doRegisterBtn.addEventListener('click', ()=>{
+            const email = document.getElementById('regEmail').value.trim();
+            const pwd = document.getElementById('regPwd').value.trim();
+            const pwd2 = document.getElementById('regPwd2').value.trim();
+            let ok = true;
+            document.getElementById('regEmailError').style.display = 'none';
+            document.getElementById('regPwdError').style.display = 'none';
+            document.getElementById('regPwd2Error').style.display = 'none';
+            if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+                document.getElementById('regEmailError').style.display = 'block';
+                ok = false;
+            }
+            if(pwd.length < 6){
+                document.getElementById('regPwdError').style.display = 'block';
+                ok = false;
+            }
+            if(pwd !== pwd2){
+                document.getElementById('regPwd2Error').style.display = 'block';
+                ok = false;
+            }
+            if(!ok) return;
+            isLogin = true;
+            const uname = email.split('@')[0];
+            sidebarUserName.textContent = uname;
+            document.getElementById('sidebarAvatar').textContent = uname[0].toUpperCase();
+            document.getElementById('profileName').value = uname;
+            document.getElementById('profileEmail').value = email;
+            document.getElementById('profileAvatar').textContent = uname[0].toUpperCase();
+            registerOverlay.classList.remove('active');
+            switchPage('chat');
+            openBtn.textContent = uname;
+            openBtn.onclick = ()=> switchPage('chat');
+        })
+
+        // ========== 聊天页逻辑 ==========
+        const chatWelcome = document.getElementById('chatWelcome');
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+        const chatSend = document.getElementById('chatSend');
+
+        // Toast 提示
+        function showToast(msg){
+            const t = document.createElement('div');
+            t.style.cssText = 'position:fixed;top:20%;left:50%;transform:translateX(-50%);background:#1f2937;color:white;padding:0.8rem 1.5rem;border-radius:12px;z-index:9999;font-size:0.9rem;box-shadow:0 4px 20px rgba(0,0,0,0.3);max-width:80%;text-align:center;';
+            t.textContent = msg;
+            document.body.appendChild(t);
+            setTimeout(()=>{ t.style.opacity='0'; t.style.transition='opacity 0.3s'; }, 2000);
+            setTimeout(()=>{ t.remove(); }, 2400);
+        }
+
+        // ========== DeepSeek API 配置 ==========
+        const DEEPSEEK_API_KEY = 'sk-d2041490d59a455995034e57d571341b';
+        const DEEPSEEK_API_URL = 'https://api.deepseek.com/v1/chat/completions';
+        const DEEPSEEK_MODEL = 'deepseek-chat';
+        let deduceMode = false;
+
+        function mdRender(text){
+            text = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+            text = text.replace(/\*\*(.+?)\*\*/g, '<strong style="color:#1f2937;">$1</strong>');
+            text = text.replace(/\*(.+?)\*/g, '<em>$1</em>');
+            text = text.replace(/`(.+?)`/g, '<code style="background:#1f2937;padding:2px 6px;border-radius:4px;font-size:0.85em;">$1</code>');
+            text = text.replace(/\n/g, '<br>');
+            return text;
+        }
+
+        // 推演开关
+        const deduceToggle = document.getElementById('chatDeduceToggle');
+        deduceToggle.addEventListener('click', ()=>{
+            deduceMode = !deduceMode;
+            deduceToggle.style.background = deduceMode ? '#60a5fa' : 'white';
+            deduceToggle.style.color = deduceMode ? 'white' : '#60a5fa';
+            showToast(deduceMode ? '并行推演已开启' : '并行推演已关闭');
+        });
+
+        function sendChat(){
+            const text = chatInput.value.trim();
+            if(!text) return;
+            chatWelcome.style.display = 'none';
+            chatMessages.style.display = 'flex';
+            const userMsg = document.createElement('div');
+            userMsg.className = 'chat-msg user';
+            userMsg.textContent = text;
+            chatMessages.appendChild(userMsg);
+            chatInput.value = '';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            if(!currentChatId){
+                currentChatId = Date.now();
+                chatHistory.push({id: currentChatId, title: text.slice(0, 20)});
+                renderSidebarChats();
+            }
+
+            if(deduceMode){
+                // 三路并行推演
+                const perspectives = [
+                    {label:'理性分析', sys:'你是VERICORE的理性分析分支，从数据和逻辑角度回答，简洁有力。'},
+                    {label:'风险预判', sys:'你是VERICORE的风险预判分支，重点分析潜在风险和负面后果。'},
+                    {label:'机会推演', sys:'你是VERICORE的机会推演分支，重点分析机会和收益可能。'}
+                ];
+                Promise.all(perspectives.map(p=>
+                    fetch(DEEPSEEK_API_URL, {
+                        method:'POST',
+                        headers:{'Content-Type':'application/json','Authorization':'Bearer '+DEEPSEEK_API_KEY},
+                        body:JSON.stringify({model:DEEPSEEK_MODEL,messages:[{role:'system',content:p.sys},{role:'user',content:text}],stream:false})
+                    }).then(r=>r.json()).then(d=>d.choices&&d.choices[0]?d.choices[0].message.content:'(无返回)')
+                )).then(replies=>{
+                    replies.forEach((reply,i)=>{
+                        const botMsg = document.createElement('div');
+                        botMsg.className = 'chat-msg bot';
+                        botMsg.innerHTML = '<strong style="color:#60a5fa;">['+perspectives[i].label+']</strong><br>' + mdRender(reply);
+                        chatMessages.appendChild(botMsg);
+                    });
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }).catch(err=>{
+                    const botMsg = document.createElement('div');
+                    botMsg.className = 'chat-msg bot';
+                    botMsg.textContent = '推演失败：' + err.message;
+                    chatMessages.appendChild(botMsg);
+                });
+                return;
+            }
+
+            // 普通单路对话
+            const botMsg = document.createElement('div');
+            botMsg.className = 'chat-msg bot';
+            botMsg.textContent = '思考中...';
+            chatMessages.appendChild(botMsg);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            fetch(DEEPSEEK_API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + DEEPSEEK_API_KEY
+                },
+                body: JSON.stringify({
+                    model: DEEPSEEK_MODEL,
+                    messages: [
+                        {role: 'system', content: '你是VERICORE（贞核），一个全域超级智能内核，由全球联合项目理事会共管。你的回答专业、简洁、有推演能力。'},
+                        {role: 'user', content: text}
+                    ],
+                    stream: false
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if(data.choices && data.choices[0]){
+                    botMsg.innerHTML = mdRender(data.choices[0].message.content);
+                } else {
+                    botMsg.textContent = '请求出错：' + (data.error ? data.error.message : '未知错误');
+                }
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            })
+            .catch(err => {
+                botMsg.textContent = '网络错误：' + err.message;
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            });
+        }
+        function renderSidebarChats(){
+            if(chatHistory.length === 0){
+                sidebarChats.innerHTML = '<div style="padding:1rem; color:var(--text-secondary); font-size:0.85rem; text-align:center;">暂无历史聊天</div>';
+                return;
+            }
+            sidebarChats.innerHTML = '';
+            chatHistory.forEach((c, idx)=>{
+                const item = document.createElement('div');
+                item.className = 'sidebar-chat-item';
+                item.textContent = c.title;
+                let pressTimer = null;
+                item.addEventListener('click', ()=>{
+                    if(pressTimer === 'long'){ pressTimer = null; return; }
+                    clearTimeout(pressTimer);
+                    currentChatId = c.id;
+                    showToast('已切换对话');
+                    sidebar.classList.remove('open');
+                    sidebarOverlay.classList.remove('open');
+                });
+                const openAction = ()=>{
+                    const sheet = document.getElementById('chatActionSheet');
+                    document.getElementById('chatActionTitle').textContent = c.title;
+                    sheet.style.display = 'block';
+                    document.getElementById('chatActionRename').onclick = ()=>{
+                        sheet.style.display = 'none';
+                        const rm = document.getElementById('renameModal');
+                        const ri = document.getElementById('renameInput');
+                        ri.value = c.title;
+                        rm.style.display = 'flex';
+                        ri.focus();
+                        document.getElementById('renameConfirm').onclick = ()=>{
+                            if(ri.value.trim()){
+                                chatHistory[idx].title = ri.value.trim();
+                                renderSidebarChats();
+                            }
+                            rm.style.display = 'none';
+                        };
+                        document.getElementById('renameCancel').onclick = ()=>{ rm.style.display = 'none'; };
+                    };
+                    document.getElementById('chatActionDelete').onclick = ()=>{
+                        sheet.style.display = 'none';
+                        chatHistory.splice(idx, 1);
+                        renderSidebarChats();
+                        showToast('对话已删除');
+                    };
+                    document.getElementById('chatActionCancel').onclick = ()=>{ sheet.style.display = 'none'; };
+                    sheet.onclick = (e)=>{ if(e.target === sheet) sheet.style.display = 'none'; };
+                };
+                item.addEventListener('touchstart', ()=>{
+                    pressTimer = setTimeout(()=>{ pressTimer = 'long'; openAction(); }, 600);
+                });
+                item.addEventListener('touchend', ()=>{ clearTimeout(pressTimer); });
+                item.addEventListener('touchmove', ()=>{ clearTimeout(pressTimer); });
+                item.addEventListener('contextmenu', (e)=>{ e.preventDefault(); openAction(); });
+                sidebarChats.appendChild(item);
+            });
+        }
+        chatSend.addEventListener('click', sendChat);
+        chatInput.addEventListener('keydown', (e)=>{
+            if(e.key === 'Enter' && !e.shiftKey){
+                e.preventDefault();
+                sendChat();
+            }
+        })
+
+        // ========== 侧边栏逻辑 ==========
+        const hamburger = document.getElementById('chatHamburger');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const newChatBtn = document.getElementById('newChatBtn');
+        const sidebarChats = document.getElementById('sidebarChats');
+        const sidebarUser = document.getElementById('sidebarUser');
+        const sidebarUserName = document.getElementById('sidebarUserName');
+
+        let chatHistory = [];
+        let currentChatId = null;
+
+        hamburger.addEventListener('click', ()=>{
+            sidebar.classList.add('open');
+            sidebarOverlay.classList.add('open');
+        });
+        sidebarOverlay.addEventListener('click', ()=>{
+            sidebar.classList.remove('open');
+            sidebarOverlay.classList.remove('open');
+        });
+
+        newChatBtn.addEventListener('click', ()=>{
+            currentChatId = null;
+            chatMessages.innerHTML = '';
+            chatMessages.style.display = 'none';
+            chatWelcome.style.display = 'flex';
+            sidebar.classList.remove('open');
+            sidebarOverlay.classList.remove('open');
+        });
+        document.getElementById('chatNewBtn').addEventListener('click', ()=>{
+            currentChatId = null;
+            chatMessages.innerHTML = '';
+            chatMessages.style.display = 'none';
+            chatWelcome.style.display = 'flex';
+        });
+
+        // 点头像弹出用户菜单
+        sidebarUser.addEventListener('click', (e)=>{
+            e.stopPropagation();
+            document.getElementById('userPopup').classList.toggle('open');
+        });
+        // 点其他地方关闭弹窗
+        document.addEventListener('click', (e)=>{
+            const popup = document.getElementById('userPopup');
+            if(!popup.contains(e.target) && !sidebarUser.contains(e.target)){
+                popup.classList.remove('open');
+            }
+            const hm = document.getElementById('helpSubmenu');
+            if(hm && hm.style.display === 'block' && !hm.contains(e.target)){
+                hm.style.display = 'none';
+            }
+        });
+        // 弹窗菜单项
+        document.getElementById('popupUpgrade').addEventListener('click', ()=>{
+            document.getElementById('userPopup').classList.remove('open');
+            sidebar.classList.remove('open');
+            sidebarOverlay.classList.remove('open');
+            switchPage('pricing');
+        });
+        document.getElementById('popupProfile').addEventListener('click', ()=>{
+            document.getElementById('userPopup').classList.remove('open');
+            sidebar.classList.remove('open');
+            sidebarOverlay.classList.remove('open');
+            switchPage('profile');
+        });
+        document.getElementById('popupSettings').addEventListener('click', ()=>{
+            document.getElementById('userPopup').classList.remove('open');
+            sidebar.classList.remove('open');
+            sidebarOverlay.classList.remove('open');
+            document.getElementById('settingsPanel').classList.add('open');
+        });
+        document.getElementById('popupHelp').addEventListener('click', (e)=>{
+            e.stopPropagation();
+            document.getElementById('userPopup').classList.remove('open');
+            const hm = document.getElementById('helpSubmenu');
+            hm.style.display = hm.style.display === 'none' ? 'block' : 'none';
+        });
+        // 帮助子菜单内容
+        const helpContents = {
+            faq: {title:'帮助中心', body:'<div style="color:#374151; font-size:0.95rem; line-height:1.8;"><p style="margin-bottom:0.8rem;"><b style="color:#1f2937;">Q: VERICORE 是什么？</b><br>全域超级智能内核，由全球联合项目理事会共管，提供多分支推演、终端联动和安全防护能力。</p><p style="margin-bottom:0.8rem;"><b style="color:#1f2937;">Q: 免费版能用多久？</b><br>免费版每日有 100 次推演额度，重置周期为 30 天。升级 PLUS 可获得更多算力和并行分支。</p><p style="margin-bottom:0.8rem;"><b style="color:#1f2937;">Q: 推演结果准吗？</b><br>推演引擎基于多分支并行计算，交叉校验模块会自动比对各分支结果差异，但不构成投资或决策建议。</p><p><b style="color:#1f2937;">Q: 对话记录会被保存吗？</b><br>默认保留 90 天，可在设置中修改。对话内容采用 AES-256 加密存储。</p></div>'},
+            privacy: {title:'隐私中心', body:'<div style="color:#374151; font-size:0.95rem; line-height:1.8;"><p style="margin-bottom:0.8rem;"><b style="color:#1f2937;">数据收集</b><br>我们只收集你主动输入的对话内容和账户信息，不会读取你的设备文件。</p><p style="margin-bottom:0.8rem;"><b style="color:#1f2937;">数据使用</b><br>对话内容用于生成推演结果，匿名化后可能用于优化引擎模型。你可在设置中关闭。</p><p style="margin-bottom:0.8rem;"><b style="color:#1f2937;">数据存储</b><br>所有数据存储于理事会认证的数据中心，采用端到端加密。</p><p><b style="color:#1f2937;">你的权利</b><br>你可以随时导出或删除你的全部数据。</p></div>'},
+            changelog: {title:'发布说明', body:'<div style="color:#374151; font-size:0.95rem; line-height:1.8;"><p style="margin-bottom:0.8rem;"><b style="color:#1f2937;">v2.4.1（3197-10）</b><br>· 新增多分支推演交叉校验<br>· 优化终端联动响应速度<br>· 修复部分用户登录异常</p><p style="margin-bottom:0.8rem;"><b style="color:#1f2937;">v2.4.0（3197-09）</b><br>· 新增安全中心仪表盘<br>· 支持企业数据库授权接入<br>· 推送通知体系重构</p><p><b style="color:#1f2937;">v2.3.0（3197-08）</b><br>· 全新侧边栏交互<br>· 推演结果支持导出 PDF</p></div>'},
+            download: {title:'下载应用', body:'<div style="color:#374151; font-size:0.95rem; line-height:1.8;"><p style="margin-bottom:0.8rem;">扫码或前往对应平台下载：</p><p style="margin-bottom:0.5rem;"><b style="color:#1f2937;">iOS</b> — App Store 搜索"VERICORE 贞核"</p><p style="margin-bottom:0.5rem;"><b style="color:#1f2937;">Android</b> — 官网下载 APK</p><p style="margin-bottom:0.5rem;"><b style="color:#1f2937;">macOS</b> — macOS 12 及以上</p><p><b style="color:#1f2937;">Windows</b> — Windows 10 及以上</p></div>'},
+            terms: {title:'服务条款', body:'<div style="color:#374151; font-size:0.95rem; line-height:1.8;"><p style="margin-bottom:1rem;"><b style="color:#1f2937;">VERICORE 全域智能内核服务条款</b><br><span style="color:#9ca3af; font-size:0.85rem;">生效日期：3197-01-01 · 全球联合理事会第 47 号决议批准</span></p><p style="margin-bottom:0.8rem;"><b style="color:#1f2937;">第一条 服务性质</b><br>VERICORE（贞核）是由全球联合理事会共管的全域超级智能内核，向注册用户提供多分支推演、终端联动、知识库检索和自然语言对话服务。推演结果基于多分支并行计算与交叉校验生成，仅供参考，不构成任何投资、法律、医疗、军事或政策决策建议。</p><p style="margin-bottom:0.8rem;"><b style="color:#1f2937;">第二条 账户与认证</b><br>用户须使用真实身份注册，每人仅可持有一个民用账户。企业及机构用户须通过理事会认证方可使用 PRO 及以上版本。账户不得转让、出租或共享。因账户泄露导致的损失由用户自行承担。</p><p style="margin-bottom:0.8rem;"><b style="color:#1f2937;">第三条 使用限制</b><br>用户不得利用本服务从事：(1)危害公共安全或破坏社会秩序的行为；(2)对推演引擎进行逆向工程、爬取算力或资源滥用；(3)生成虚假信息、深度伪造或用于非法目的的内容；(4)未经授权访问其他用户数据或理事会系统。违反者将被暂停或终止服务。</p><p style="margin-bottom:0.8rem;"><b style="color:#1f2937;">第四条 算力与配额</b><br>FREE 版用户每日享有 100 次推演额度，重置周期为 30 天。PLUS 及以上版本额度随套餐提升。算力配额不得转售、交易或用于商业批量调用。理事会保留在极端算力紧张时优先保障公共服务的权利。</p><p style="margin-bottom:0.8rem;"><b style="color:#1f2937;">第五条 数据与隐私</b><br>对话内容采用 AES-256 端到端加密存储于理事会认证数据中心。默认保留 90 天，用户可在设置中调整或永久删除。详细数据处理规则见《隐私政策》。</p><p style="margin-bottom:0.8rem;"><b style="color:#1f2937;">第六条 知识产权</b><br>VERICORE 引擎、模型架构及界面设计的知识产权归全球联合理事会所有。用户输入的对话内容归用户本人所有，匿名化后的聚合数据可能用于引擎优化（用户可在设置中关闭）。</p><p style="margin-bottom:0.8rem;"><b style="color:#1f2937;">第七条 服务变更与终止</b><br>理事会保留在必要时升级、暂停或终止部分服务功能的权利，并将提前 30 天公告。用户可随时注销账户，注销后数据将在 14 天内彻底清除。</p><p><b style="color:#1f2937;">第八条 管辖与争议</b><br>本条款适用理事会共同管辖法。争议优先通过理事会调解委员会解决；调解不成的，提交理事会仲裁庭终局裁决。</p></div>'},
+            privacypolicy: {title:'隐私政策', body:'<div style="color:#374151; font-size:0.95rem; line-height:1.8;"><p style="margin-bottom:1rem;"><b style="color:#1f2937;">VERICORE 隐私政策</b><br><span style="color:#9ca3af; font-size:0.85rem;">生效日期：3197-01-01 · 依据《全球数字人权公约》第 12 条制定</span></p><p style="margin-bottom:0.8rem;"><b style="color:#1f2937;">一、我们收集的信息</b><br>1. 账户信息：注册邮箱、认证编号、套餐等级。<br>2. 对话数据：你主动输入的文字、上传的文件、推演请求记录。<br>3. 设备信息：登录终端型号、操作系统版本、登录时间戳（用于安全审计）。</p><p style="margin-bottom:0.8rem;"><b style="color:#1f2937;">二、我们不收集的信息</b><br>通讯录、相册、麦克风常驻录音、精确地理位置、浏览历史、支付密码、生物特征数据。VERICORE 不会在后台静默采集任何用户设备内容。</p><p style="margin-bottom:0.8rem;"><b style="color:#1f2937;">三、数据如何使用</b><br>1. 生成推演结果和对话回复。<br>2. 进行安全审计，检测异常登录和算力滥用。<br>3. 在你授权后，将匿名化对话用于引擎模型优化（可在设置中关闭）。<br>我们不会将你的对话内容出售给任何第三方或广告商。</p><p style="margin-bottom:0.8rem;"><b style="color:#1f2937;">四、数据存储与加密</b><br>所有数据存储于理事会认证的零知识数据中心，传输层使用 TLS 3.0，存储层使用 AES-256-GCM。对话内容在服务端以你账户密钥加密，即使理事会运维人员也无法明文读取。</p><p style="margin-bottom:0.8rem;"><b style="color:#1f2937;">五、数据保留期限</b><br>对话记录默认保留 90 天，到期自动清除。企业 PRO 版最长可设置 5 年保留。你可随时在设置中手动删除全部或单条对话。</p><p style="margin-bottom:0.8rem;"><b style="color:#1f2937;">六、你的权利</b><br>1. 访问权：随时查看你的全部对话和账户数据。<br>2. 导出权：一键导出为标准格式文件。<br>3. 删除权：删除单条对话或彻底注销账户。<br>4. 拒绝权：关闭匿名化数据用于模型优化。<br>5. 申诉权：对数据处理有异议可向理事会数据监察专员申诉。</p><p><b style="color:#1f2937;">七、联系我们</b><br>隐私事务：privacy@vericore.global · 数据监察专员：dpo@vericore.global</p></div>'},
+            report: {title:'报告错误', body:'<div style="color:#374151; font-size:0.95rem; line-height:1.8;"><p style="margin-bottom:0.8rem;">发现引擎异常或 Bug？请提供以下信息：</p><p style="margin-bottom:0.5rem;">· 问题描述</p><p style="margin-bottom:0.5rem;">· 复现步骤</p><p style="margin-bottom:0.5rem;">· 设备型号和系统版本</p><p style="margin-bottom:1rem;">发送至：bugs@vericore.global</p><button onclick="showToast(\'已复制反馈邮箱\')" style="background:#60a5fa; color:white; border:none; padding:0.6rem 1.2rem; border-radius:8px; font-size:0.9rem; cursor:pointer;">复制反馈邮箱</button></div>'}
+        };
+        function openHelp(key){
+            document.getElementById('helpDetailTitle').textContent = helpContents[key].title;
+            document.getElementById('helpDetailBody').innerHTML = helpContents[key].body;
+            document.getElementById('panelHelpDetail').classList.add('open');
+            document.getElementById('helpSubmenu').style.display = 'none';
+        }
+        document.getElementById('agreeTerms').addEventListener('click', ()=> openHelp('terms'));
+        document.getElementById('agreePrivacy').addEventListener('click', ()=> openHelp('privacypolicy'));
+        document.querySelectorAll('[data-help]').forEach(item=>{
+            item.addEventListener('click', (e)=>{
+                e.stopPropagation();
+                openHelp(item.getAttribute('data-help'));
+            });
+        });
+        document.getElementById('popupLogout').addEventListener('click', ()=>{
+            document.getElementById('userPopup').classList.remove('open');
+            isLogin = false;
+            sidebarUserName.textContent = '未登录';
+            document.getElementById('sidebarAvatar').textContent = 'V';
+            openBtn.textContent = '登录';
+            openBtn.onclick = ()=> loginOverlay.classList.add('active');
+            switchPage('home');
+        });
+        // 功能面板开关
+        document.querySelectorAll('[data-panel]').forEach(item=>{
+            item.addEventListener('click', ()=>{
+                const pid = item.getAttribute('data-panel');
+                sidebar.classList.remove('open');
+                sidebarOverlay.classList.remove('open');
+                document.getElementById(pid).classList.add('open');
+                if(pid === 'panelDeduce') addDeduceInput();
+            });
+        });
+        document.querySelectorAll('.func-close').forEach(btn=>{
+            btn.addEventListener('click', ()=> btn.closest('.func-panel').classList.remove('open'));
+        });
+        document.querySelectorAll('.func-panel').forEach(p=>{
+            p.addEventListener('click', (e)=>{ if(e.target === p) p.classList.remove('open'); });
+        });
+        // 设置面板
+        document.getElementById('settingsClose').addEventListener('click', ()=>{
+            document.getElementById('settingsPanel').classList.remove('open');
+        });
+        document.getElementById('settingsPanel').addEventListener('click', (e)=>{
+            if(e.target === e.currentTarget) document.getElementById('settingsPanel').classList.remove('open');
+        });
+        // 设置tab切换
+        document.querySelectorAll('.settings-tab').forEach(tab=>{
+            tab.addEventListener('click', ()=>{
+                document.querySelectorAll('.settings-tab').forEach(t=>t.classList.remove('active'));
+                tab.classList.add('active');
+                document.querySelectorAll('.settings-pane').forEach(p=>p.style.display='none');
+                document.getElementById(tab.getAttribute('data-tab')).style.display='block';
+            });
+        });
+        // 所有开关通用
+        document.querySelectorAll('.settings-toggle').forEach(t=>{
+            t.addEventListener('click', function(){ this.classList.toggle('on'); });
+        });
+        // 自定义下拉
+        document.querySelectorAll('[data-dropdown]').forEach(dd=>{
+            dd.addEventListener('click', (e)=>{
+                e.stopPropagation();
+                const menu = dd.nextElementSibling;
+                document.querySelectorAll('.dropdown-menu').forEach(m=>{ if(m!==menu) m.classList.remove('open'); });
+                menu.classList.toggle('open');
+            });
+        });
+        document.querySelectorAll('.dropdown-item').forEach(item=>{
+            item.addEventListener('click', (e)=>{
+                e.stopPropagation();
+                const menu = item.closest('.dropdown-menu');
+                const dd = menu.previousElementSibling;
+                menu.querySelectorAll('.dropdown-item').forEach(i=>{ i.classList.remove('selected'); const c=i.querySelector('.check'); if(c) c.remove(); });
+                item.classList.add('selected');
+                const check = document.createElement('span');
+                check.className = 'check';
+                check.textContent = '✓';
+                item.appendChild(check);
+                // 取第一项的标题文字
+                const title = item.querySelector('div div');
+                if(title){
+                    dd.childNodes[0].textContent = title.textContent;
+                }
+                menu.classList.remove('open');
+            });
+        });
+        document.addEventListener('click', ()=>{
+            document.querySelectorAll('.dropdown-menu').forEach(m=>m.classList.remove('open'));
+        });
+
+        document.getElementById('profileSave').addEventListener('click', ()=>{
+            const name = document.getElementById('profileName').value.trim();
+            if(name){
+                sidebarUserName.textContent = name;
+                document.getElementById('sidebarAvatar').textContent = name[0].toUpperCase();
+                document.getElementById('profileAvatar').textContent = name[0].toUpperCase();
+            }
+            showToast('已保存');
+            switchPage('chat');
+        });
+
+        // ========== 密码眼睛 ==========
+        const eyeOn = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
+        const eyeOff = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>';
+        function bindPwdToggle(iconId, inputId){
+            const icon = document.getElementById(iconId);
+            const input = document.getElementById(inputId);
+            icon.innerHTML = eyeOn;
+            icon.addEventListener('click', ()=>{
+                if(input.type === 'password'){
+                    input.type = 'text';
+                    icon.innerHTML = eyeOff;
+                } else {
+                    input.type = 'password';
+                    icon.innerHTML = eyeOn;
+                }
+            });
+        }
+        bindPwdToggle('loginPwdToggle', 'loginPwd');
+        bindPwdToggle('regPwdToggle', 'regPwd');
+        bindPwdToggle('regPwd2Toggle', 'regPwd2');
+
+        // ========== 侧边栏菜单 ==========
+        document.querySelectorAll('.sidebar-menu-item[data-target]').forEach(item=>{
+            item.addEventListener('click', ()=>{
+                sidebar.classList.remove('open');
+                sidebarOverlay.classList.remove('open');
+                switchPage(item.getAttribute('data-target'));
+            });
+        });
+
+        // ========== 注册链接 ==========
+        document.getElementById('goRegister').addEventListener('click', ()=>{
+            loginOverlay.classList.remove('active');
+            registerOverlay.classList.add('active');
+        });
+
+        // ========== 退出登录 ==========
+        document.getElementById('logoutBtn').addEventListener('click', ()=>{
+            isLogin = false;
+            sidebarUserName.textContent = '未登录';
+            document.getElementById('sidebarAvatar').textContent = 'V';
+            openBtn.textContent = '登录';
+            openBtn.onclick = ()=> loginOverlay.classList.add('active');
+            switchPage('home');
+        });
+
+        const closeBuyBtn = document.getElementById('closeBuy');
+        const confirmBuyBtn = document.getElementById('confirmBuy');
+        const buyPlanName = document.getElementById('buyPlanName');
+        const buySuccessTip = document.getElementById('buySuccess');
+        const priceSelectBtns = document.querySelectorAll('.price-select-btn');
+
+        priceSelectBtns.forEach(btn=>{
+            btn.addEventListener('click', ()=>{
+                if(!isLogin){
+                    loginOverlay.classList.add('active');
+                    return;
+                }
+                selectedPlan = btn.getAttribute('data-plan');
+                buyPlanName.textContent = selectedPlan;
+                buySuccessTip.style.display = 'none';
+                buyOverlay.classList.add('active');
+            })
+        })
+        closeBuyBtn.addEventListener('click', ()=> buyOverlay.classList.remove('active'));
+        buyOverlay.addEventListener('click', (e)=>{
+            if(e.target === buyOverlay) buyOverlay.classList.remove('active');
+        })
+        confirmBuyBtn.addEventListener('click', ()=>{
+            buySuccessTip.style.display = 'block';
+            document.getElementById('sidebarPlan').textContent = selectedPlan;
+            document.getElementById('profilePlan').textContent = selectedPlan;
+            localStorage.setItem('vericore_plan', selectedPlan);
+            setTimeout(()=>{
+                buyOverlay.classList.remove('active');
+            }, 1500);
+        })
+
+        // ========== 恢复套餐 ==========
+        const savedPlan = localStorage.getItem('vericore_plan');
+        if(savedPlan){
+            document.getElementById('sidebarPlan').textContent = savedPlan;
+            document.getElementById('profilePlan').textContent = savedPlan;
+        }
+
+        // ========== 多分支推演：真的调 API ==========
+        let deduceResultArea = null;
+        function addDeduceInput(){
+            const panel = document.getElementById('panelDeduce');
+            if(panel.querySelector('.deduce-input-area')) return;
+            const div = document.createElement('div');
+            div.className = 'deduce-input-area';
+            div.style.cssText = 'margin-top:1rem; padding-top:1rem; border-top:1px solid #374151;';
+            div.innerHTML = `
+                <div style="font-size:0.85rem; color:#9ca3af; margin-bottom:0.5rem;">输入要推演的问题：</div>
+                <input type="text" class="deduce-q" placeholder="例如：明年该投入新能源还是AI？" style="width:100%; background:#111827; border:1px solid #374151; border-radius:8px; padding:0.6rem; color:white; font-size:0.88rem; margin-bottom:0.6rem; box-sizing:border-box;">
+                <button class="deduce-go" style="width:100%; background:#60a5fa; color:white; border:none; border-radius:8px; padding:0.6rem; font-size:0.9rem; cursor:pointer;">开始并行推演</button>
+                <div class="deduce-results" style="margin-top:0.8rem;"></div>
+            `;
+            panel.querySelector('.func-card').appendChild(div);
+            div.querySelector('.deduce-go').addEventListener('click', ()=>{
+                const q = div.querySelector('.deduce-q').value.trim();
+                if(!q){ showToast('请输入问题'); return; }
+                const results = div.querySelector('.deduce-results');
+                results.innerHTML = '<div style="color:#9ca3af; font-size:0.85rem;">3 路并行推演中...</div>';
+                const perspectives = [
+                    {label:'分支A · 理性分析', sys:'你是VERICORE的理性分析分支，从数据和逻辑角度回答，简洁有力。'},
+                    {label:'分支B · 风险预判', sys:'你是VERICORE的风险预判分支，重点分析潜在风险和负面后果。'},
+                    {label:'分支C · 机会推演', sys:'你是VERICORE的机会推演分支，重点分析机会和收益可能。'}
+                ];
+                Promise.all(perspectives.map(p=>
+                    fetch(DEEPSEEK_API_URL, {
+                        method:'POST',
+                        headers:{'Content-Type':'application/json','Authorization':'Bearer '+DEEPSEEK_API_KEY},
+                        body:JSON.stringify({model:DEEPSEEK_MODEL,messages:[{role:'system',content:p.sys},{role:'user',content:q}],stream:false})
+                    }).then(r=>r.json()).then(d=>d.choices&&d.choices[0]?d.choices[0].message.content:'(无返回)')
+                )).then(replies=>{
+                    results.innerHTML = perspectives.map((p,i)=>`
+                        <div style="background:#111827; border-radius:8px; padding:0.8rem; margin-bottom:0.5rem;">
+                            <div style="font-size:0.8rem; color:#60a5fa; margin-bottom:0.3rem; font-weight:600;">${p.label}</div>
+                            <div style="font-size:0.82rem; color:#d1d5db; line-height:1.5;">${replies[i].replace(/\n/g,'<br>')}</div>
+                        </div>
+                    `).join('');
+                }).catch(err=>{
+                    results.innerHTML = '<div style="color:#ef4444; font-size:0.85rem;">推演失败：'+err.message+'</div>';
+                });
+            });
+        }
+
+        // ========== 终端管理：可添加/删除 ==========
+        function renderTerminals(){
+            const list = JSON.parse(localStorage.getItem('vericore_terminals')||'[]');
+            const panel = document.getElementById('panelTerminal');
+            const existing = panel.querySelectorAll('.func-item[data-custom-term]');
+            existing.forEach(e=>e.remove());
+            list.forEach((t,i)=>{
+                const item = document.createElement('div');
+                item.className = 'func-item';
+                item.setAttribute('data-custom-term','');
+                item.innerHTML = `
+                    <div class="func-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/></svg></div>
+                    <div class="func-item-info"><div class="func-item-title">${t.name}</div><div class="func-item-desc">${t.desc}</div></div>
+                    <span class="func-badge ${t.connected?'':'off'}">${t.connected?'已连接':'未连接'}</span>
+                `;
+                item.style.cursor = 'pointer';
+                item.addEventListener('click', ()=>{
+                    t.connected = !t.connected;
+                    localStorage.setItem('vericore_terminals', JSON.stringify(list));
+                    renderTerminals();
+                });
+                panel.querySelector('.func-card').insertBefore(item, panel.querySelector('.func-item[data-add-term]')||panel.querySelector('.func-card').lastChild);
+            });
+        }
+        function initTerminals(){
+            const panel = document.getElementById('panelTerminal');
+            const addBtn = panel.querySelector('.func-item:last-child');
+            addBtn.setAttribute('data-add-term','');
+            addBtn.addEventListener('click', ()=>{
+                const name = prompt('终端名称：');
+                if(!name) return;
+                const list = JSON.parse(localStorage.getItem('vericore_terminals')||'[]');
+                list.push({name:name, desc:'新绑定设备', connected:true});
+                localStorage.setItem('vericore_terminals', JSON.stringify(list));
+                renderTerminals();
+                showToast('终端已添加');
+            });
+            renderTerminals();
+        }
+        initTerminals();
+
+        // ========== 项目空间：可创建 ==========
+        function renderProjects(){
+            const list = JSON.parse(localStorage.getItem('vericore_projects')||'[]');
+            const panel = document.getElementById('panelProject');
+            panel.querySelectorAll('[data-custom-proj]').forEach(e=>e.remove());
+            const empty = panel.querySelector('p');
+            if(list.length===0){ if(empty) empty.style.display=''; return; }
+            if(empty) empty.style.display='none';
+            list.forEach((p,i)=>{
+                const item = document.createElement('div');
+                item.className = 'func-item';
+                item.setAttribute('data-custom-proj','');
+                item.innerHTML = `
+                    <div class="func-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></div>
+                    <div class="func-item-info"><div class="func-item-title">${p.name}</div><div class="func-item-desc">${p.date}</div></div>
+                    <span class="func-badge" style="color:#ef4444; cursor:pointer;">删除</span>
+                `;
+                item.querySelector('.func-badge').addEventListener('click', (e)=>{
+                    e.stopPropagation();
+                    list.splice(i,1);
+                    localStorage.setItem('vericore_projects', JSON.stringify(list));
+                    renderProjects();
+                });
+                panel.querySelector('.func-card').insertBefore(item, panel.querySelector('.func-item:last-child'));
+            });
+        }
+        function initProjects(){
+            const panel = document.getElementById('panelProject');
+            panel.querySelector('.func-item:last-child').addEventListener('click', ()=>{
+                const name = prompt('项目名称：');
+                if(!name) return;
+                const list = JSON.parse(localStorage.getItem('vericore_projects')||'[]');
+                list.push({name:name, date:new Date().toLocaleDateString('zh-CN')});
+                localStorage.setItem('vericore_projects', JSON.stringify(list));
+                renderProjects();
+                showToast('项目已创建');
+            });
+            renderProjects();
+        }
+        initProjects();
+
+        // ========== 定时推演：可添加 ==========
+        function renderSchedules(){
+            const list = JSON.parse(localStorage.getItem('vericore_schedules')||'[]');
+            const panel = document.getElementById('panelSchedule');
+            panel.querySelectorAll('[data-custom-sched]').forEach(e=>e.remove());
+            list.forEach((s,i)=>{
+                const item = document.createElement('div');
+                item.className = 'func-item';
+                item.setAttribute('data-custom-sched','');
+                item.innerHTML = `
+                    <div class="func-item-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+                    <div class="func-item-info"><div class="func-item-title">${s.name}</div><div class="func-item-desc">${s.time}</div></div>
+                    <span class="func-badge" style="color:#ef4444; cursor:pointer;">删除</span>
+                `;
+                item.querySelector('.func-badge').addEventListener('click', (e)=>{
+                    e.stopPropagation();
+                    list.splice(i,1);
+                    localStorage.setItem('vericore_schedules', JSON.stringify(list));
+                    renderSchedules();
+                });
+                panel.querySelector('.func-card').insertBefore(item, panel.querySelector('.func-item:last-child'));
+            });
+        }
+        function initSchedules(){
+            const panel = document.getElementById('panelSchedule');
+            panel.querySelector('.func-item:last-child').addEventListener('click', ()=>{
+                const name = prompt('任务名称：');
+                if(!name) return;
+                const time = prompt('执行时间（如 每天 08:00）：')||'每天 08:00';
+                const list = JSON.parse(localStorage.getItem('vericore_schedules')||'[]');
+                list.push({name:name, time:time});
+                localStorage.setItem('vericore_schedules', JSON.stringify(list));
+                renderSchedules();
+                showToast('定时任务已创建');
+            });
+            renderSchedules();
+        }
+        initSchedules();
+
+        // ========== 连接器：可开关 ==========
+        document.querySelectorAll('#panelPlugin .func-item').forEach(item=>{
+            item.style.cursor = 'pointer';
+            item.addEventListener('click', ()=>{
+                const badge = item.querySelector('.func-badge');
+                if(badge.textContent === '已连接'){
+                    badge.textContent = '已断开';
+                    badge.classList.add('off');
+                } else if(badge.textContent === '已断开'){
+                    badge.textContent = '已连接';
+                    badge.classList.remove('off');
+                }
+            });
+        });
+
+            if('serviceWorker' in navigator){
+            navigator.serviceWorker.register('./sw.js').catch(()=>{});
+        }
+    </script>
+</body>
+</html>
